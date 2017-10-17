@@ -6,12 +6,11 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Arrays.Queries q = new Arrays.Queries();
-            Console.WriteLine(q.GetSum(0, 3));
-            Console.WriteLine(q.GetSum(1, 3));
-            Console.WriteLine(q.GetSum(2, 5));
-            Console.WriteLine(q.GetSum(0, 6));
-            Console.WriteLine(q.GetSum(1, 5));
+            var result = Arrays.Problems.SeggregateArray(new[] { 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0 });
+
+            result.Print();
         }
+
+
     }
 }
