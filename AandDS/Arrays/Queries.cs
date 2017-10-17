@@ -16,13 +16,9 @@ namespace AandDS.Arrays
             }
         }
 
-
-
         public int GetSum(int start, int end)
         {
-            return 0;
+            return start > 0 ? Source[end] - Source[start - 1] : Source[end];
         }
-
-
     }
 }
