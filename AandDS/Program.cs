@@ -6,9 +6,9 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            var result = Arrays.Problems.SeggregateArray(new[] { 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0 });
-
-            result.Print();
+            Console.WriteLine(Demo.Divisor.Solution1(12));
+            Console.WriteLine(Demo.Divisor.Solution2(12));
+            Console.WriteLine(Demo.Divisor.Solution3(100));
         }
 
 
