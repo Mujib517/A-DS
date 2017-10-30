@@ -7,17 +7,13 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Sqrt.Solution3(0));
-            Console.WriteLine(Sqrt.Solution3(1));
-            Console.WriteLine(Sqrt.Solution3(4));
-            Console.WriteLine(Sqrt.Solution3(9));
-            Console.WriteLine(Sqrt.Solution3(16));
-            Console.WriteLine(Sqrt.Solution3(25));
-            Console.WriteLine(Sqrt.Solution3(36));
-            Console.WriteLine(Sqrt.Solution3(49));
-            Console.WriteLine(Sqrt.Solution3(64));
-            Console.WriteLine(Sqrt.Solution3(81));
-            Console.WriteLine(Sqrt.Solution3(100));
+            Console.WriteLine(Prime.Solution2(1));
+            Console.WriteLine(Prime.Solution2(2));
+            Console.WriteLine(Prime.Solution2(3));
+            Console.WriteLine(Prime.Solution2(5));
+            Console.WriteLine(Prime.Solution2(7));
+            Console.WriteLine(Prime.Solution2(10));
+            Console.WriteLine(Prime.Solution2(15));
         }
     }
 }
