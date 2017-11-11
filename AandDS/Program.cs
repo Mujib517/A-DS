@@ -1,4 +1,5 @@
 ﻿using AandDS.Demo;
+using AandDS.Week1;
 using System;
 
 namespace AandDS
@@ -7,13 +8,9 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Prime.Solution2(1));
-            Console.WriteLine(Prime.Solution2(2));
-            Console.WriteLine(Prime.Solution2(3));
-            Console.WriteLine(Prime.Solution2(5));
-            Console.WriteLine(Prime.Solution2(7));
-            Console.WriteLine(Prime.Solution2(10));
-            Console.WriteLine(Prime.Solution2(15));
+            Swap.Solution1(2, 3);
+            Swap.Solution2(2, 3);
+            Swap.Solution3(2, 3);
         }
     }
 }
