@@ -16,6 +16,7 @@ namespace AandDS.Week1
         }
 
         /*
+         * Most significant bit is important to find out the sign
          0    0   0
          0    1   1
          1    0   1
@@ -34,6 +35,21 @@ namespace AandDS.Week1
         {
             if ((a == 0 && b == 0) || a == b) return true;
             return (a ^ b) > 0;
+        }
+
+        public static bool Solution3(int a, int b)
+        {
+            //doesn't work for zero
+            return (a * b) > 0; //danger of overflow
+        }
+
+        /*
+         Right shift 31 bits (coz number is int. 32nd bit would be sign)
+
+             */
+        public static bool Solution4(int a, int b)
+        {
+            return ((a >> 31) ^ (b >> 31)) == 0;
         }
     }
 }

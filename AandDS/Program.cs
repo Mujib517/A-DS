@@ -8,14 +8,8 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(SameSign.Solution2(2, 3));
-            Console.WriteLine(SameSign.Solution2(-2, -3));
-            Console.WriteLine(SameSign.Solution2(2, -3));
-            Console.WriteLine(SameSign.Solution2(-2, 3));
-            Console.WriteLine(SameSign.Solution2(0, 0));
-            Console.WriteLine(SameSign.Solution2(0, 2));
-            Console.WriteLine(SameSign.Solution2(0, -2));
-            Console.WriteLine(SameSign.Solution2(-2, 0));
+            Combinations.Solution1(new[] { 'a', 'b', 'c' });
+            Console.WriteLine(CheckBit.Solution1(5, 2)); //0 1 0 1
         }
     }
 }
