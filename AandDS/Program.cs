@@ -8,9 +8,14 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Swap.Solution1(2, 3);
-            Swap.Solution2(2, 3);
-            Swap.Solution3(2, 3);
+            Console.WriteLine(SameSign.Solution2(2, 3));
+            Console.WriteLine(SameSign.Solution2(-2, -3));
+            Console.WriteLine(SameSign.Solution2(2, -3));
+            Console.WriteLine(SameSign.Solution2(-2, 3));
+            Console.WriteLine(SameSign.Solution2(0, 0));
+            Console.WriteLine(SameSign.Solution2(0, 2));
+            Console.WriteLine(SameSign.Solution2(0, -2));
+            Console.WriteLine(SameSign.Solution2(-2, 0));
         }
     }
 }
