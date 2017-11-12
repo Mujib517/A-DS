@@ -46,5 +46,37 @@ namespace AandDS.Week1
             int expectedSum = (n * (n + 1)) / 2;
             return expectedSum - actualSum;
         }
+
+        //Reverse the number in binary format and return equivalent decimal value
+        public static UInt32 ReverseBinaryNumber(int n)
+        {
+            var binaryStr = "";
+
+            for (var i = 0; i < 32; i++)
+            {
+                binaryStr += ((n >> i) & 1) > 0 ? "1" : "0";
+            }
+
+            return Convert.ToUInt32(binaryStr, 2);
+        }
+
+        //how many bits need to be flipped inorder to transform n1 to n2
+        public static int FlipBits(int n1, int n2)
+        {
+            int result = n1 ^ n2;
+
+            int count = 0;
+            for (var i = 0; i < 32; i++)
+            {
+                if (((result >> i) & 1) > 0) count++;
+            }
+
+            return count;
+        }
+
+        public static int SwapBits(int n)
+        {
+            return ((n & 0xaa) >> 1) | ((n & 0x55) << 1);
+        }
     }
 }

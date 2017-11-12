@@ -8,21 +8,15 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
+            var n = 5;
 
-            var str = "1 2 7 9 5 6 3 8";
+            Console.WriteLine(Convert.ToString(0x5555, 2));
+            Console.WriteLine(n & 0xaa);
 
-            int[] arr = Array.ConvertAll(str.Split(' '), Int32.Parse);
-            //var input3 = new[] { 8, 11, 10, 2, 7, 4, 3, 5, 1, 6 };
-            //var input2 = new[] { 3, 5, 8, 1, 4, 7, 2 };
-            //var input = new[] { 1, 2, 7, 9, 5, 6, 3, 8 };
-
-            //var str = "1 2 3 4";
-
-            //Array.ConvertAll(str.Split(' '), int.Parse);
-
-            //Console.WriteLine(Assignments.FindMissingNumber(input));
-            //Console.WriteLine(Assignments.FindMissingNumber(input2));
-            //Console.WriteLine(Assignments.FindMissingNumber(input3));
+            //Console.WriteLine(Assignments.SwapBits(10));
+            //Console.WriteLine(Assignments.SwapBits(7));
+            //Console.WriteLine(Assignments.SwapBits(43));
+            //Console.WriteLine(Assignments.SwapBits(100));
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
