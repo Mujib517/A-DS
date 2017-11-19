@@ -121,8 +121,8 @@ namespace AandDS.Week2
         {
             int count = 0;
 
-            //Array.Sort(teamA);
-            //Array.Sort(teamB);
+            Array.Sort(teamA);
+            Array.Sort(teamB);
 
             int p1 = size - 1;
             int p2 = size - 1;
