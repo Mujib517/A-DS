@@ -10,11 +10,14 @@ namespace AandDS
         static void Main(string[] args)
         {
 
-            var a = new[] {3,7,10 };
-            var b = new[] { 5,20,15 };
+            var a = new[] { 3, 7, 10 };
+            var b = new[] { 5, 20, 15 };
 
+            var arr = new[] { 176, -272, -272, -45, 269, -327, -945, 176 };
+            var arr2 = new[] { 274, 204, -161, 481, -606, -767, -351 };
+            Week2.Assignments.SelectionSort2(arr, arr.Length);
 
-            Console.WriteLine(Week2.Assignments.GetAWinningChances(a, b, 2));
+            //foreach (var item in arr) Console.Write(item + " ");
 
 
 
@@ -61,5 +64,5 @@ namespace AandDS
             //    return ((2 << (int)x) | (1 << (int)y) % largestPrime);
             //}
         }
-    }   
+    }
 }

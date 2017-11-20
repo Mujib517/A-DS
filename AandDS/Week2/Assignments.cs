@@ -65,19 +65,25 @@ namespace AandDS.Week2
             return false;
         }
 
-        public static void BubbleSort(int[] arr, int n)
+        public static int BubbleSort(int[] arr, int n)
         {
+            var count = 0;
             for (int i = 0; i < n; i++)
             {
-                for (int j = 1; j < n; j++)
+                var swaps = 0;
+                for (int j = 0; j < n - 1; j++)
                 {
-                    if (arr[i] > arr[j])
+                    if (arr[j] > arr[j + 1])
                     {
+                        swaps++;
                         Swap(ref arr[i], ref arr[j]);
-                        Console.Write(j + " ");
                     }
                 }
+                if (swaps == 0) break;
+                count += swaps;
             }
+
+            return count;
         }
 
         private static void Swap(ref int a, ref int b)
@@ -138,6 +144,66 @@ namespace AandDS.Week2
             }
 
             return count;
+        }
+
+        public static void InsertionSort(int[] arr, int n)
+        {
+
+            for (int i = 1; i < n; i++)
+            {
+                int key = arr[i];
+                int j = i - 1;
+
+                while (j >= 0 && arr[j] > key)
+                {
+                    arr[j + 1] = arr[j];
+                    j--;
+                }
+                arr[j + 1] = key;
+                Console.WriteLine((j + 1) + " ");
+            }
+        }
+
+        public static void SelectionSort(int[] arr, int n)
+        {
+            for (int i = 1; i < n - 1; i++)
+            {
+
+                int min = i;
+                int j = i + 1;
+                while (j < n)
+                {
+                    if (arr[j] < arr[min])
+                        min = j;
+                    j++;
+                }
+                Console.Write(min + " ");
+                Swap(ref arr[i], ref arr[min]);
+            }
+        }
+
+        public static void SelectionSort2(int[] arr, int n)
+        {
+            for (int i = 0; i < n - 1; i++)
+            {
+                int min_idx = i;
+                for (int j = i + 1; j < n; j++)
+                    if (arr[j] < arr[min_idx])
+                        min_idx = j;
+
+                int temp = arr[min_idx];
+                //Console.Write(i - min_idx + n + " ");
+
+                Console.WriteLine("from {0} {1}  values {2},{3}", min_idx, i, arr[min_idx], arr[i]);
+                arr[min_idx] = arr[i];
+                arr[i] = temp;
+            }
+        }
+
+        private static void Print(int[] arr)
+        {
+            foreach (var item in arr) Console.Write(item + " ");
+            Console.WriteLine();
         }
     }
 
