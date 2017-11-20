@@ -10,15 +10,13 @@ namespace AandDS
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Assignments.ToBinary2(10));
-            Console.WriteLine(Assignments.ToBinary2(15));
-            Console.WriteLine(Assignments.ToBinary2(7));
-            Console.WriteLine(Assignments.ToBinary2(1));
-            Console.WriteLine(Assignments.ToBinary2(120));
-            //Assignments.ToBinary(15);
-            //Assignments.ToBinary(7);
-            //Assignments.ToBinary(1);
-            //Assignments.ToBinary(120);
+            var a = new[] {3,7,10 };
+            var b = new[] { 5,20,15 };
+
+
+            Console.WriteLine(Week2.Assignments.GetAWinningChances(a, b, 2));
+
+
 
 
             //long test = (long)1e18;
@@ -35,7 +33,7 @@ namespace AandDS
             //while (testCases > 0)
             //{
             //    int size = Convert.ToInt32(Console.ReadLine());
-            //    int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
+            //    int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), int.Parse);
             //    Console.WriteLine(FindMissingNumber(arr, size));
             //    testCases--;
             //}
@@ -63,5 +61,5 @@ namespace AandDS
             //    return ((2 << (int)x) | (1 << (int)y) % largestPrime);
             //}
         }
-    }
+    }   
 }
