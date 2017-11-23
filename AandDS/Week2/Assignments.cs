@@ -166,20 +166,22 @@ namespace AandDS.Week2
 
         public static void SelectionSort(int[] arr, int n)
         {
-            for (int i = 1; i < n - 1; i++)
+            for (int i = 0; i < n - 1; i++)
             {
 
                 int min = i;
                 int j = i + 1;
                 while (j < n)
                 {
-                    if (arr[j] < arr[min])
+                    if (arr[j] <= arr[min])
                         min = j;
                     j++;
                 }
                 Console.Write(min + " ");
                 Swap(ref arr[i], ref arr[min]);
             }
+
+            Print(arr);
         }
 
         public static void SelectionSort2(int[] arr, int n)
@@ -199,7 +201,45 @@ namespace AandDS.Week2
                 arr[i] = temp;
             }
         }
+        
+        public static void StrInterleaving(string a, string b, int m, int n, char[] result, int i)
+        {
+            if (m == 0 && n == 0) Console.WriteLine(result);
 
+            if (m != 0)
+            {
+                result[i] = a[0];
+                StrInterleaving(a.TrimStart(a[0]), b, m - 1, n, result, i + 1);
+            }
+            if (n != 0)
+            {
+                result[i] = b[0];
+                StrInterleaving(a, b.TrimStart(b[0]), m, n - 1, result, i + 1);
+            }
+        }
+
+        public static int MaxContSubArray(int[] arr, int n)
+        {
+            HashSet<int> S = new HashSet<int>();
+            int ans = 0;
+
+            for (int i = 0; i < n; ++i)
+                S.Add(arr[i]);
+
+            for (int i = 0; i < n; ++i)
+            {
+                if (!S.Contains(arr[i] - 1))
+                {
+                    int j = arr[i];
+                    while (S.Contains(j))
+                        j++;
+
+                    if (ans < j - arr[i])
+                        ans = j - arr[i];
+                }
+            }
+            return ans;
+        }
         private static void Print(int[] arr)
         {
             foreach (var item in arr) Console.Write(item + " ");
