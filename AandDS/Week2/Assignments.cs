@@ -201,7 +201,7 @@ namespace AandDS.Week2
                 arr[i] = temp;
             }
         }
-        
+
         public static void StrInterleaving(string a, string b, int m, int n, char[] result, int i)
         {
             if (m == 0 && n == 0) Console.WriteLine(result);
@@ -244,6 +244,44 @@ namespace AandDS.Week2
         {
             foreach (var item in arr) Console.Write(item + " ");
             Console.WriteLine();
+        }
+
+        //every number repeats 3 times except 1
+        public static int FindNonRepeatingElem(int[] arr, int n)
+        {
+            int ones = 0;
+            int zeros = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                if ((1 & arr[i]) == 0) zeros++;
+                else ones++;
+            }
+
+            return ones % 3 == 0 ? zeros : ones;
+        }
+
+        public static List<String> Interleave(String s, String t)
+        {
+            List<String> result = new List<String>();
+            if (t.Length == 0)
+                result.Add(s);
+            else if (s.Length == 0)
+                result.Add(t);
+            else
+            {
+                for (int i = 0; i <= s.Length; i++)
+                {
+                    char c = t[0];
+                    String left = s.Substring(0, i);
+                    String right = s.Substring(i);
+                    foreach (String u in Interleave(right, t.Substring(1)))
+                    {
+                        result.Add(left + c + u);
+                    }
+                }
+            }
+            return result;
         }
     }
 

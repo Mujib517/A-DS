@@ -2,6 +2,7 @@
 using AandDS.Week1;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AandDS
@@ -10,33 +11,13 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            var arr = new[] { 176, -272, -272, -45, 269, -327, -945, 176 };
-            var arr2 = new[] { 274, 204, -161, 481, -606, -767, -351 };
-            var arr3 = new[] { -274, 161 };
-            var arr4 = new[] { 5, 3, 1, 5 };
-            var arr5 = new[] { 40, 10, 20, 40 };
-            Week2.Assignments.SelectionSort(arr, arr.Length);
-
-
-            //var a = new[] { 3, 7, 10 };
-            //var b = new[] { 5, 20, 15 };
-
-            //var arr = new[] { 176, -272, -272, -45, 269, -327, -945, 176 };
-            //var arr2 = new[] { 274, 204, -161, 481, -606, -767, -351 };
-            //Week2.Assignments.SelectionSort2(arr, arr.Length);
-
-            //foreach (var item in arr) Console.Write(item + " ");
-
-
-
-
-            //long test = (long)1e18;
-
-            //Console.WriteLine(Assignments.FindNthNumberWithTwoSetBits(1));
-            //Console.WriteLine(Assignments.FindNthNumberWithTwoSetBits(2));
-            //Console.WriteLine(Assignments.FindNthNumberWithTwoSetBits(5));
-            //Console.WriteLine(Assignments.FindNthNumberWithTwoSetBits(50));
-            //Console.WriteLine(Assignments.FindNthNumberWithTwoSetBits(test));
+            int[] arr = new[] { -6, 10, -1, 20, 15, 5 };
+            Array.Sort(arr);
+            //Console.WriteLine(Week3.Assignments.Floor(arr, 6, -1));
+            Console.WriteLine(Week3.Assignments.Floor(arr, 6, 10));
+            Console.WriteLine(Week3.Assignments.Floor(arr, 6, 8));
+            Console.WriteLine(Week3.Assignments.Floor(arr, 6, -10));
+            Console.WriteLine(Week3.Assignments.Floor(arr, 6, -4));
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
@@ -46,29 +27,6 @@ namespace AandDS
             //    int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), int.Parse);
             //    Console.WriteLine(FindMissingNumber(arr, size));
             //    testCases--;
-            //}
-
-            //static void Main(String[] args)
-            //{
-            //    int testCases = Convert.ToInt32(Console.ReadLine());
-            //    while (testCases > 0)
-            //    {
-            //        int n = Convert.ToInt32(Console.ReadLine());
-            //        Console.WriteLine(FindNthNumberWithTwoSetBits(n));
-            //        testCases--;
-            //    }
-            //}
-
-            //private static int FindNthNumberWithTwoSetBits(int n)
-            //{
-            //    int largestPrime = (int)1e9 + 7;
-            //    long x1 = (long)Math.Round(Math.Sqrt(n * 2), 0) - 1;
-            //    long y1 = n - ((long)((x1 * (x1 + 1)) / 2) + 1);
-
-            //    int x = (int)x1 % largestPrime;
-            //    int y = (int)y1 % largestPrime;
-
-            //    return ((2 << (int)x) | (1 << (int)y) % largestPrime);
             //}
         }
     }
