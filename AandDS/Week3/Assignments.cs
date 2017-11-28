@@ -33,6 +33,23 @@ namespace AandDS.Week3
             Print(result);
         }
 
+        //a[i]-a[j]==k i!=j
+        public static bool SumWithDifference(int[] arr, int n, int k)
+        {
+            HashSet<int> hash = new HashSet<int>();
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (!hash.Contains(i)) hash.Add(arr[i]);
+            }
+
+            for (var i = 0; i < arr.Length; i++)
+            {
+                if (hash.Contains(arr[i] - k) || hash.Contains(k - arr[i])) return true;
+            }
+            return false;
+        }
+
         static void Print(int[] arr)
         {
             List<Data> result = new List<Data>();

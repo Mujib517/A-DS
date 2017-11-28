@@ -186,18 +186,22 @@ namespace AandDS.Week2
 
         public static void SelectionSortDesc(int[] arr, int n)
         {
-            for (int i = n - 1; i >= 0; i--)
+            for (int i = n - 1; i >= 1; i--)
             {
-                int min_idx = i;
+                int max_idx = i;
 
-                for (int j = n - 1; j >= i + 1; j--)
+                for (int j = i - 1; j >= 0; j--)
                 {
-                    if (arr[j] > arr[min_idx])
-                        min_idx = j;
+                    if (arr[j] >= arr[max_idx])
+                    {
+                        max_idx = j;
+                    }
                 }
-                Console.Write(min_idx + " ");
-                Swap(ref arr[i], ref arr[min_idx]);
+                Swap(ref arr[max_idx], ref arr[i]);
+                Console.Write(max_idx + " ");
             }
+
+            Console.WriteLine();
         }
 
         public static void StrInterleaving(string a, string b, int m, int n, char[] result, int i)
