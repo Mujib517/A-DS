@@ -70,9 +70,10 @@ namespace AandDS.Week3
             while (start < end)
             {
                 mid = start + (end - start) / 2;
-                if (arr[mid] <= k)
+                if (arr[mid] == k) break;
+                if (arr[mid] >= k)
                     end = mid;
-                else start = mid - 1;
+                else start = mid + 1;
             }
 
             return arr[mid] <= k ? arr[mid] : int.MinValue;

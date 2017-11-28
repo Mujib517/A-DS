@@ -173,7 +173,7 @@ namespace AandDS.Week2
                 int j = i + 1;
                 while (j < n)
                 {
-                    if (arr[j] <= arr[min])
+                    if (arr[j] < arr[min])
                         min = j;
                     j++;
                 }
@@ -184,21 +184,19 @@ namespace AandDS.Week2
             Print(arr);
         }
 
-        public static void SelectionSort2(int[] arr, int n)
+        public static void SelectionSortDesc(int[] arr, int n)
         {
-            for (int i = 0; i < n - 1; i++)
+            for (int i = n - 1; i >= 0; i--)
             {
                 int min_idx = i;
-                for (int j = i + 1; j < n; j++)
-                    if (arr[j] < arr[min_idx])
+
+                for (int j = n - 1; j >= i + 1; j--)
+                {
+                    if (arr[j] > arr[min_idx])
                         min_idx = j;
-
-                int temp = arr[min_idx];
-                //Console.Write(i - min_idx + n + " ");
-
-                Console.WriteLine("from {0} {1}  values {2},{3}", min_idx, i, arr[min_idx], arr[i]);
-                arr[min_idx] = arr[i];
-                arr[i] = temp;
+                }
+                Console.Write(min_idx + " ");
+                Swap(ref arr[i], ref arr[min_idx]);
             }
         }
 
