@@ -7,6 +7,7 @@ namespace AandDS.Week3
 {
     public class Assignments
     {
+        //url: https://www.hackerrank.com/contests/smart-interviews/challenges/si-distinct-elements-in-window
         public static double CBRT(double n, double start, double end)
         {
             var absN = Math.Abs(n);
@@ -111,6 +112,33 @@ namespace AandDS.Week3
             return dict.ContainsKey(key) ? dict[key] : 0;
         }
 
+        public static void DistinctElementsInWindow(int[] arr, int n, int l)
+        {
+            for (int i = 1; i <= n - l; i++)
+            {
+                int start = i;
+                int end = i + l;
+                Console.Write(GetDistinctCount(arr, start, end) + " ");
+            }
+            Console.WriteLine();
+        }
+
+        static int GetDistinctCount(int[] arr, int start, int end)
+        {
+            HashSet<int> hash = new HashSet<int>();
+            int count = 0;
+
+            for (int i = start; i < end; i++)
+            {
+                if (!hash.Contains(arr[i]))
+                {
+                    count++;
+                    hash.Add(arr[i]);
+                }
+
+            }
+            return count;
+        }
 
         class Data
         {
