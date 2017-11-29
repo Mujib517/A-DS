@@ -11,10 +11,9 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            int[] arr = new[] { 3, -4, -3, -4, -2, 0, 2, -2, 6, 0 };
+            int[] arr = new[] { 8, 5, 10, 3, 6, 1, 2, 4, 8, 14 };
 
-
-            Week3.Assignments.DistinctElementsInWindow(arr, arr.Length, 7);
+            Console.WriteLine(Week3.Assignments.Calculate(arr, arr.Length, 3));
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
