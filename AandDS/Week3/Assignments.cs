@@ -272,6 +272,60 @@ namespace AandDS.Week3
             return Floor3(arr, mid + 1, high, x);
         }
 
+
+        private static int GetMaximum(int[] arr)
+        {
+            int max = arr[0];
+            for (int i = 1; i < arr.Length; i++)
+            {
+                if (arr[i] > max) max = arr[i];
+            }
+            return max;
+        }
+
+        private static int GetSum(int[] arr)
+        {
+            int sum = arr[0];
+            for (int i = 1; i < arr.Length; i++)
+            {
+                sum += arr[i];
+            }
+            return sum;
+        }
+
+        public static int Calculate(int[] arr, int n, int k)
+        {
+            int start = GetMaximum(arr);
+            int end = GetSum(arr);
+            int mid = 0;
+
+            while (start < end)
+            {
+                mid = start + (end - start) / 2;
+                if (Feasible(arr, k, mid)) start = mid + 1;
+                else end = mid;
+            }
+            return mid;
+        }
+
+        private static bool Feasible(int[] arr, int k, int time)
+        {
+            int count = 0;
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i != arr.Length - 1 && count == k) return false;
+                if (sum + arr[i] <= time)
+                    sum += arr[i];
+                else
+                {
+                    count++;
+                    sum = arr[i];
+                }
+            }
+            return count == k - 1;
+        }
+
         class Data
         {
             public int Key { get; set; }
