@@ -112,24 +112,34 @@ namespace AandDS.Week3
             return dict.ContainsKey(key) ? dict[key] : 0;
         }
 
-        public static void DistinctElementsInWindow(int[] arr, int n, int l)
+        public static void DistinctElementsInWindow(int[] arr, int n, int k)
         {
             int count = 0;
-            var result = GetDistinctCount(arr, l, ref count);
+            Dictionary<int, int> dict = GetDistinctCount(arr, k, ref count);
+
             Console.Write(count + " ");
-            for (int i = 0; i <= n - l; i++)
+
+            for (int i = k; i < n; i++)
             {
-                result[arr[i - 1]]--;
-                count = result[arr[i - 1]] == 0 ? --count : count;
-                var value = arr[i + l - 2];
-                if (result.ContainsKey(value))
+                if (dict[arr[i - k]] == 1)
                 {
-                    var frequency = result[value];
-                    count = frequency == 0 ? ++count : count;
+                    dict.Remove(arr[i - k]);
+                    count--;
                 }
-                else count++;
+                else
+                    dict[arr[i - k]]--;
+
+                if (!dict.ContainsKey(arr[i]))
+                {
+                    dict.Add(arr[i], 1);
+                    count++;
+                }
+                else
+                    dict[arr[i]]++;
+
                 Console.Write(count + " ");
             }
+
             Console.WriteLine();
         }
 
@@ -325,6 +335,26 @@ namespace AandDS.Week3
             }
             return count == k - 1;
         }
+
+        public static int CountTriangles(int[] arr, int n)
+        {
+            Array.Sort(arr);
+
+            int count = 0;
+
+            for (int i = 0; i < n - 2; ++i)
+            {
+                int k = i + 2;
+                for (int j = i + 1; j < n; ++j)
+                {
+                    while (k < n && arr[i] + arr[j] > arr[k])
+                        ++k;
+                    count += k - j - 1;
+                }
+            }
+            return count;
+        }
+
 
         class Data
         {
