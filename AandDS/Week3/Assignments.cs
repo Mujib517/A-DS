@@ -89,12 +89,12 @@ namespace AandDS.Week3
             {
                 mid = start + (end - start) / 2;
                 if (arr[mid] == k) break;
-                if (arr[mid] >= k)
-                    end = mid;
-                else start = mid + 1;
+                if (arr[mid] < k) start = mid;
+                else end = mid - 1;
             }
 
             return arr[mid] <= k ? arr[mid] : int.MinValue;
+
         }
 
         public static void SaveFrequency(int[] arr, int n)
@@ -112,34 +112,204 @@ namespace AandDS.Week3
             return dict.ContainsKey(key) ? dict[key] : 0;
         }
 
-        public static void DistinctElementsInWindow(int[] arr, int n, int l)
+        public static void DistinctElementsInWindow(int[] arr, int n, int k)
         {
-            for (int i = 1; i <= n - l; i++)
+            int count = 0;
+            Dictionary<int, int> dict = GetDistinctCount(arr, k, ref count);
+
+            Console.Write(count + " ");
+
+            for (int i = k; i < n; i++)
             {
-                int start = i;
-                int end = i + l;
-                Console.Write(GetDistinctCount(arr, start, end) + " ");
+                if (dict[arr[i - k]] == 1)
+                {
+                    dict.Remove(arr[i - k]);
+                    count--;
+                }
+                else
+                    dict[arr[i - k]]--;
+
+                if (!dict.ContainsKey(arr[i]))
+                {
+                    dict.Add(arr[i], 1);
+                    count++;
+                }
+                else
+                    dict[arr[i]]++;
+
+                Console.Write(count + " ");
             }
+
             Console.WriteLine();
         }
 
-        static int GetDistinctCount(int[] arr, int start, int end)
+        static Dictionary<int, int> GetDistinctCount(int[] arr, int l, ref int count)
         {
-            HashSet<int> hash = new HashSet<int>();
-            int count = 0;
+            Dictionary<int, int> hash = new Dictionary<int, int>();
 
-            for (int i = start; i < end; i++)
+            for (int i = 0; i < l; i++)
             {
-                if (!hash.Contains(arr[i]))
+                if (!hash.ContainsKey(arr[i]))
                 {
                     count++;
-                    hash.Add(arr[i]);
+                    hash.Add(arr[i], 1);
                 }
+                else hash[arr[i]]++;
 
+            }
+            return hash;
+        }
+
+        public static int SmallerElemntCountToRight(int[] arr, int n)
+        {
+            int count = 0;
+            for (int i = 0; i < n; i++)
+            {
+                count += GetSmallerElemntCount(arr, i);
             }
             return count;
         }
 
+        private static int GetSmallerElemntCount(int[] arr, int start)
+        {
+            int count = 0;
+            for (int i = start + 1; i < arr.Length; i++)
+            {
+                if (arr[start] > arr[i]) count++;
+            }
+            return count;
+        }
+
+        public static int JobPartition(int[] arr, int n, int k)
+        {
+            int start = 0;
+            int end = GetSum(arr, ref start);
+            int mid = 0;
+
+            while (start < end)
+            {
+                mid = start + (end - start) / 2;
+                if (IsFeasible(arr, mid, k)) end = mid;
+                else start = mid + 1;
+            }
+            return start;
+        }
+
+        private static int GetSum(int[] arr, ref int max)
+        {
+            int sum = arr[0];
+            max = arr[0];
+
+            for (int i = 1; i < arr.Length; i++)
+            {
+                sum += arr[i];
+                if (arr[i] > max) max = arr[i];
+            }
+
+            return sum;
+        }
+
+        private static bool IsFeasible(int[] arr, int mid, int k)
+        {
+            int count = 1;
+            int sum = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (sum + arr[i] > mid)
+                {
+                    sum = 0;
+                    count++;
+                }
+
+                sum += arr[i];
+            }
+            return count <= k;
+        }
+
+
+        public static bool TripletSum(int[] arr, int n, int sum)
+        {
+            int l, r;
+
+            Array.Sort(arr);
+
+            for (int i = 0; i < n - 2; i++)
+            {
+                l = i + 1;
+                r = n - 1;
+                while (l < r)
+                {
+                    if (arr[i] + arr[l] + arr[r] == sum)
+                        return true;
+                    else if (arr[i] + arr[l] + arr[r] < sum)
+                        l++;
+                    else
+                        r--;
+                }
+            }
+
+            return false;
+        }
+
+        public static int Floor2(int[] arr, int n, int x)
+        {
+            if (x == arr[n - 1]) return arr[n - 1];
+            if (x < arr[0])
+                return int.MinValue;
+            for (int i = 1; i < n - 1; i++)
+                if (arr[i] > x)
+                    return arr[i - 1];
+
+            return int.MinValue;
+        }
+
+        public static int Floor3(int[] arr, int low, int high, int x)
+        {
+            if (low > high)
+                return int.MinValue;
+
+            int mid = (low + high) / 2;
+
+            if (arr[mid] == x)
+                return arr[mid];
+
+            if (mid > 0 && arr[mid - 1] <= x && x < arr[mid])
+                return arr[mid - 1];
+
+            if (x < arr[mid])
+                return Floor3(arr, low, mid - 1, x);
+
+            return Floor3(arr, mid + 1, high, x);
+        }
+
+        public static int Ceil(int[] arr, int low, int high, int x)
+        {
+            int mid;
+
+            if (x <= arr[low])
+                return arr[low];
+            if (x > arr[high])
+                return int.MaxValue;
+
+            mid = (low + high) / 2;
+            if (arr[mid] == x)
+                return arr[mid];
+
+            else if (arr[mid] < x)
+            {
+                if (mid + 1 <= high && x <= arr[mid + 1])
+                    return arr[mid + 1];
+                else
+                    return Ceil(arr, mid + 1, high, x);
+            }
+            else
+            {
+                if (mid - 1 >= low && x > arr[mid - 1])
+                    return arr[mid];
+                else
+                    return Ceil(arr, low, mid - 1, x);
+            }
+        }
 
         private static int GetMaximum(int[] arr)
         {
@@ -194,34 +364,25 @@ namespace AandDS.Week3
             return count == k - 1;
         }
 
-
-        public static string IsPanlindrom(string str, int n)
+        public static int CountTriangles(int[] arr, int n)
         {
-            int p1 = 0;
-            int p2 = n - 1;
-            while (p1 < p2)
-            {
-                if (str[p1] != str[p2]) return "No";
-                p1++;
-                p2--;
-            }
-            return "Yes";
-        }
+            Array.Sort(arr);
 
-        public static int CountDivisors(double n)
-        {
             int count = 0;
-            for (int i = 1; i <= Math.Sqrt(n) + 1; i++)
+
+            for (int i = 0; i < n - 2; ++i)
             {
-                if (n % i == 0)
+                int k = i + 2;
+                for (int j = i + 1; j < n; ++j)
                 {
-                    if (n / i == i)
-                        count++;
-                    else count += 2;
+                    while (k < n && arr[i] + arr[j] > arr[k])
+                        ++k;
+                    count += k - j - 1;
                 }
             }
             return count;
         }
+
 
         class Data
         {
