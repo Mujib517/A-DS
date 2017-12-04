@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AandDS.Week4
 {
@@ -20,12 +21,6 @@ namespace AandDS.Week4
             }
             return '.';
         }
-
-        static bool checkVowel(int i)
-        {
-            return i == 97 || i == 101 || i == 105 || i == 111 || i == 117;
-        }
-
         public static bool AreAnagrams(string s1, string s2)
         {
             if (s1.Length != s2.Length) return false;
@@ -40,6 +35,52 @@ namespace AandDS.Week4
             foreach (int i in cnt)
                 if (i != 0) return false;
             return true;
+        }
+
+        public static string Print(string s)
+        {
+            s = s.ToLower();
+            Regex regex = new Regex("[ ]{2,}");
+            s = regex.Replace(s, " ");
+
+            int[] cnt = new int[256];
+            foreach (char c in s)
+                cnt[c]++;
+
+            int words = s.Split(' ').Length;
+            int vowels = 0;
+            int consonants = 0;
+
+            for (int i = 0; i <= cnt.Length; i++)
+            {
+                if (i == 32 && cnt[i] > 0) words += cnt[i];
+                else if (CheckVowel(i)) vowels += cnt[i];
+                else consonants += cnt[i];
+            }
+
+            return words + " " + vowels + " " + consonants;
+        }
+
+        public static bool PowerRepresentation(int n)
+        {
+            int factor = 2;
+            int x = n;
+            while (factor <= Math.Sqrt(n))
+            {
+                if (x % factor == 0) x = x / factor;
+                else
+                {
+                    factor++;
+                    x = n;
+                }
+                if (x == 1) return true;
+            }
+            return false;
+        }
+
+        static bool CheckVowel(int i)
+        {
+            return i == 97 || i == 101 || i == 105 || i == 111 || i == 117;
         }
     }
 }

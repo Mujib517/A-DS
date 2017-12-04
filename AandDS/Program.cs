@@ -11,10 +11,8 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Week4.Assignments.AreAnagrams("a", "a"));
-            Console.WriteLine(Week4.Assignments.AreAnagrams("b", "h"));
-            Console.WriteLine(Week4.Assignments.AreAnagrams("post", "stop"));
-            Console.WriteLine(Week4.Assignments.AreAnagrams("hi", "hey"));
+            Console.WriteLine(Week4.Assignments.PowerRepresentation(125));
+
 
 
 
