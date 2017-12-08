@@ -43,23 +43,28 @@ namespace AandDS.Week4
             Regex regex = new Regex("[ ]{2,}");
             s = regex.Replace(s, " ");
 
-            int[] cnt = new int[256];
+            Dictionary<char, int> dict = new Dictionary<char, int>();
             foreach (char c in s)
-                cnt[c]++;
-
-            int words = s.Split(' ').Length;
-            int vowels = 0;
-            int consonants = 0;
-
-            for (int i = 0; i <= cnt.Length; i++)
             {
-                if (i == 32 && cnt[i] > 0) words += cnt[i];
-                else if (CheckVowel(i)) vowels += cnt[i];
-                else consonants += cnt[i];
+                if (dict.ContainsKey(c)) dict[c]++;
+                else dict.Add(c, 1);
             }
+            var words = 1;
+            var vowels = 0;
+            var consonants = 0;
+
+            foreach (var key in dict.Keys)
+            {
+                if (key == ' ') words++;
+                else if (key == 'a' || key == 'e' || key == 'i' || key == 'o' || key == 'u') vowels++;
+                else consonants++;
+            }
+
 
             return words + " " + vowels + " " + consonants;
         }
+
+
 
         public static bool PowerRepresentation(int n)
         {

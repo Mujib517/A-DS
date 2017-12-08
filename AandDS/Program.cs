@@ -11,7 +11,15 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Week4.Assignments.PowerRepresentation(125));
+
+
+
+
+
+            //Console.WriteLine(Week4.Assignments.Print("Hi"));
+            Console.WriteLine(Week4.Assignments.Print("Hello World"));
+            //Console.WriteLine(Week4.Assignments.Print("  Exception"));
+            //Console.WriteLine(Week4.Assignments.Print("Hi there"));
 
 
 
