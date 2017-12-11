@@ -11,19 +11,6 @@ namespace AandDS
     {
         static void Main(string[] args)
         {
-
-
-
-
-
-            //Console.WriteLine(Week4.Assignments.Print("Hi"));
-            Console.WriteLine(Week4.Assignments.Print("Hello World"));
-            //Console.WriteLine(Week4.Assignments.Print("  Exception"));
-            //Console.WriteLine(Week4.Assignments.Print("Hi there"));
-
-
-
-
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)
             //{
