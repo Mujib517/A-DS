@@ -61,27 +61,32 @@ namespace AandDS.Week5
 
         public static int SubSeqSum(int[] arr, int n, int start, int end)
         {
-            var newArr = new int[n / 2];
+            var len = n / 2;
+            var newArr = new int[len];
 
             Array.Copy(arr, 0, newArr, 0, n / 2);
             var subset1 = GenerateSubSeq(newArr, n / 2);
 
-            newArr = new int[n / 2];
-            Array.Copy(arr, n / 2, newArr, 0, n / 2);
-            var subset2 = GenerateSubSeq(newArr, n / 2);
+            newArr = new int[n - len];
+            Array.Copy(arr, len, newArr, 0, n - len);
+            var subset2 = GenerateSubSeq(newArr, n - len);
 
+            subset1.AddRange(subset2);
 
-            return FindSum(subset1, subset2, start, end);
+            return FindSum(subset1, start, end);
         }
 
-        public static int FindSum(int[] arr1, int[] arr2, int start, int end)
+        public static int FindSum(List<int> list, int start, int end)
         {
-            return 0;
+            list.Sort();
+            int startIdx = Floor(list, start);
+            int endIdx = Floor(list, end);
+            return endIdx - startIdx + 1;
         }
-        public static int[] GenerateSubSeq(int[] arr, int n)
+        public static List<int> GenerateSubSeq(int[] arr, int n)
         {
             int upper = 1 << n; //2 power n
-            int[] result = new int[upper];
+            var result = new List<int>();
             for (int i = 0; i < upper; i++)
             {
                 int j = 0;
@@ -91,7 +96,7 @@ namespace AandDS.Week5
                     if (IsBitSet(i, j)) count = count + arr[j];
                     j++;
                 }
-                result[i] = count;
+                result.Add(count);
             }
             return result;
         }
@@ -99,6 +104,18 @@ namespace AandDS.Week5
         private static bool IsBitSet(int n, int i)
         {
             return ((n >> i) & 1) > 0;
+        }
+
+        private static int Floor(List<int> array, int elem)
+        {
+            int idx = 0;
+            for (int i = 0; i < array.Count; i++)
+            {
+                if (array[i] > elem)
+                    break;
+                else idx = i;
+            }
+            return idx;
         }
 
         #endregion
