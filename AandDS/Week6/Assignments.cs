@@ -147,6 +147,22 @@ namespace AandDS.Week6
                 }
             }
         }
+
+        public static void StockSpan(int[] arr, int n)
+        {
+            var result = new int[n];
+
+            result[0] = 1;
+            for (int i = 1; i < n; i++)
+            {
+                result[i] = 1;
+                for (int j = i - 1; (j >= 0) && (arr[i] >= arr[j]); j--)
+                    result[i]++;
+            }
+
+            foreach (var item in result) Console.Write(item + " ");
+            Console.WriteLine();
+        }
     }
 
     public class Dir
