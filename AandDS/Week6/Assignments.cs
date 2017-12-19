@@ -120,8 +120,8 @@ namespace AandDS.Week6
 
                     else
                     {
-                        var path = stack.Pop().FullPath;
-                        Console.WriteLine(path == "/" ? "/" : path.TrimEnd('/'));
+                        var path = stack.Peek().FullPath;
+                        Console.WriteLine((path + "/").Replace("//", "/"));
                     }
                     break;
             }
@@ -129,7 +129,11 @@ namespace AandDS.Week6
 
         private static void Push(Stack<Dir> stack, string str)
         {
-            if (str.StartsWith("/")) stack.Clear();
+            if (str.StartsWith("/"))
+            {
+                stack.Clear();
+                stack.Push(new Dir { Name = "/", FullPath = "/" });
+            }
             var dirs = str.Split('/');
 
             foreach (var dir in dirs)
@@ -142,7 +146,7 @@ namespace AandDS.Week6
                         Name = dir
                     };
                     if (stack.Count == 0) currentDir.FullPath = dir;
-                    else currentDir.FullPath = stack.Peek().FullPath.TrimEnd('/') + "/" + currentDir.Name.TrimEnd('/');
+                    else currentDir.FullPath = stack.Peek().FullPath + "/" + currentDir.Name;
                     stack.Push(currentDir);
                 }
             }
@@ -163,6 +167,8 @@ namespace AandDS.Week6
             foreach (var item in result) Console.Write(item + " ");
             Console.WriteLine();
         }
+
+
     }
 
     public class Dir

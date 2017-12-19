@@ -13,8 +13,6 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-
-           
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)
             //{
