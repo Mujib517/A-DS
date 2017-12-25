@@ -168,7 +168,7 @@ namespace AandDS.Week6
             Console.WriteLine();
         }
 
-        static void StockSpan2(int[] arr, int n, int S[])
+        static void StockSpan2(int[] arr, int n, int[] S)
         {
             Stack<int> st = new Stack<int>();
             int[] result = new int[n];

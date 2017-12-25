@@ -18,6 +18,17 @@ namespace AandDS
 
         static void Main(string[] args)
         {
+            var arr = new[] { 1, 0, 0, 0, 0, 0, 1, 1 };
+            Console.WriteLine(Contests.Contest2.GetResult(1));
+            Console.WriteLine(Contests.Contest2.GetResult(2));
+            Console.WriteLine(Contests.Contest2.GetResult(3));
+            Console.WriteLine(Contests.Contest2.GetResult(4));
+            Console.WriteLine(Contests.Contest2.GetResult(16));
+            Console.WriteLine(Contests.Contest2.GetResult(10));
+            //var result = Contests.Contest2.PrePopulateCount(primes);
+            //var count = Contests.Contest2.FindCount(result, 5, 11);
+
+            //Console.WriteLine(count);
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)
             //{
