@@ -163,6 +163,24 @@ namespace AandDS.Week6
             foreach (var item in result) Console.Write(item + " ");
             Console.WriteLine();
         }
+
+        static void StockSpan2(int[] arr, int n, int S[])
+        {
+            Stack<int> st = new Stack<int>();
+            int[] result = new int[n];
+            st.Push(0);
+
+            result[0] = 1;
+
+            for (int i = 1; i < n; i++)
+            {
+                while (st.Count!=0 && arr[st.Peek()] <= arr[i])
+                    st.Pop();
+
+                result[i] = (st.Count==0) ? (i + 1) : (i - st.Peek());
+                st.Push(i);
+            }
+        }
     }
 
     public class Dir
