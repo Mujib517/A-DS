@@ -18,17 +18,11 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            var arr = new[] { 1, 0, 0, 0, 0, 0, 1, 1 };
-            Console.WriteLine(Contests.Contest2.GetResult(1));
-            Console.WriteLine(Contests.Contest2.GetResult(2));
-            Console.WriteLine(Contests.Contest2.GetResult(3));
-            Console.WriteLine(Contests.Contest2.GetResult(4));
-            Console.WriteLine(Contests.Contest2.GetResult(16));
-            Console.WriteLine(Contests.Contest2.GetResult(10));
-            //var result = Contests.Contest2.PrePopulateCount(primes);
-            //var count = Contests.Contest2.FindCount(result, 5, 11);
+            int[] arr = new[] { 3, 2, 4, 1, 5 };
+            var root = Week7.Assignments.CreateBST(arr, arr.Length);
+            Week7.Assignments.LevelOrderBottomUp(root, arr.Length);
 
-            //Console.WriteLine(count);
+
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)
             //{
@@ -38,11 +32,6 @@ namespace AandDS
             //    testCases--;
             //}
         }
-
-        // 1 --> 2 --> 3 --> 4 --> 5
-        // 5 --> 4 --> 3 --> 2 --> 1
-
-        //     4-5->null
 
         static Node CreateList(int[] arr)
         {
