@@ -98,6 +98,113 @@ namespace AandDS.Week7
                 else Console.Write(node.Data + " ");
             }
         }
+        public static void ZigZagLevelOrder(Node root)
+        {
+            if (root == null) return;
+
+            Stack<Node> s1 = new Stack<Node>();
+            Stack<Node> s2 = new Stack<Node>();
+
+            s1.Push(root);
+
+            while (s1.Count != 0 || s2.Count != 0)
+            {
+                while (s1.Count != 0)
+                {
+                    Node node = s1.Pop();
+                    Console.Write(node.Data + " ");
+                    if (node.Right != null) s2.Push(node.Right);
+                    if (node.Left != null) s2.Push(node.Left);
+                }
+
+                while (s2.Count != 0)
+                {
+                    Node node = s2.Pop();
+                    Console.Write(node.Data + " ");
+
+                    if (node.Left != null) s1.Push(node.Left);
+                    if (node.Right != null) s1.Push(node.Right);
+                }
+            }
+        }
+
+        public static bool IsFBT(Node root)
+        {
+            if (root == null) return true;
+            if ((root.Left == null && root.Right != null) || (root.Left != null && root.Right == null)) return false;
+            return IsFBT(root.Left) && IsFBT(root.Right);
+        }
+
+        public static bool IsCBT(Node root, int i, int n)
+        {
+            if (root == null) return true;
+            if (root.Left != null && 2 * i + 1 >= n || IsCBT(root.Left, 2 * i + 1, n)) return false;
+            if (root.Right != null && 2 * i + 2 >= n || IsCBT(root.Right, 2 * i + 2, n)) return false;
+            return true;
+        }
+
+        public static void LeftView(Node root)
+        {
+            LeftView(root, 1);
+        }
+
+        public static void RightView(Node root)
+        {
+            RightView(root, 1);
+        }
+
+        private static void RightView(Node root, int level)
+        {
+            if (root == null) return;
+            if (maxLevel < level)
+            {
+                Console.Write(root.Data + " ");
+                maxLevel = level;
+            }
+            RightView(root.Right, level + 1);
+            RightView(root.Left, level + 1);
+        }
+
+        private static int maxLevel = 0;
+
+        private static void LeftView(Node root, int level)
+        {
+            if (root == null) return;
+            if (maxLevel < level)
+            {
+                Console.Write(root.Data + " ");
+                maxLevel = level;
+            }
+            LeftView(root.Left, level + 1);
+            LeftView(root.Right, level + 1);
+        }
+
+        public static bool IsBalnaced(Node root)
+        {
+            if (root == null) return true;
+            return (Math.Abs(Height(root.Left) - Height(root.Right)) <= 1) && IsBalnaced(root.Left) && IsBalnaced(root.Right);
+        }
+
+        //root left 2*i
+        //root right 2i+1
+        public static bool IsBST(int[] arr, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                int root = arr[i];
+                if (2 * i + 1 < n)
+                {
+                    int left = arr[2 * i + 1];
+                    if (root < left) return false;
+                }
+                if (2 * i + 2 < n)
+                {
+                    int right = arr[2 * i + 2];
+                    if (root > right) return false;
+                }
+            }
+            return true;
+        }
         public static Node CreateBST(int[] arr, int n)
         {
             Node root = new Node { Data = arr[0] };

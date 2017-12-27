@@ -18,9 +18,26 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            int[] arr = new[] { 3, 2, 4, 1, 5 };
-            var root = Week7.Assignments.CreateBST(arr, arr.Length);
-            Week7.Assignments.LevelOrderBottomUp(root, arr.Length);
+            int[] arr = new[] { 40, 49, 87, 651 };
+            var root = Week7.Assignments.IsBST(arr, arr.Length);
+            Console.WriteLine(root);
+
+
+            //int testCases = Convert.ToInt32(Console.ReadLine());
+            //while (testCases > 0)
+            //{
+            //    int size = Convert.ToInt32(Console.ReadLine());
+            //    int[] arr = Array.ConvertAll(Console.ReadLine().Trim().Split(' '), int.Parse);
+            //    Node root = CreateBST(arr, size);
+            //    Console.WriteLine(IsCBT(root) ? "Yes" : "No");
+            //    testCases--;
+            //}
+
+            //3 2 4  null 1  5 null
+
+            //3 4 2 5 1 
+
+            // 3 4 2  null 1 5
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
