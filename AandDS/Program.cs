@@ -18,7 +18,7 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            int[] arr = new[] { 3, 2, 4, 1, 5 };
+            int[] arr = new[] { 4, 5, 15, 0, 1, 7, 17 };
             var root = Week7.Assignments.CreateBST(arr, arr.Length);
             Week7.Assignments.BottmUpZigZag(root);
 

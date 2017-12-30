@@ -262,26 +262,26 @@ namespace AandDS.Week7
             bool direction = false;
             for (int i = h; i >= 0; i--)
             {
-                BottomUpZigZag(root, 0, h, direction);
+                BottomUpZigZag(root, 0, i, direction);
                 direction = !direction;
             }
             Console.WriteLine();
         }
 
-        private static void BottomUpZigZag(Node root, int current, int height, bool direction)
+        private static void BottomUpZigZag(Node root, int current, int height)
         {
             if (root == null) return;
 
             if (current == height) Console.Write(root.Data + " ");
-            if (direction)
+            if (height % 2 == 0)
             {
-                BottomUpZigZag(root.Left, current + 1, height, direction);
-                BottomUpZigZag(root.Right, current + 1, height, direction);
+                BottomUpZigZag(root.Left, current + 1, height);
+                BottomUpZigZag(root.Right, current + 1, height);
             }
             else
             {
-                BottomUpZigZag(root.Right, current + 1, height, direction);
-                BottomUpZigZag(root.Left, current + 1, height, direction);
+                BottomUpZigZag(root.Right, current + 1, height);
+                BottomUpZigZag(root.Left, current + 1, height);
             }
         }
 
