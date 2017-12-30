@@ -262,7 +262,7 @@ namespace AandDS.Week7
             bool direction = false;
             for (int i = h; i >= 0; i--)
             {
-                BottomUpZigZag(root, 0, i, direction);
+                BottomUpZigZag(root, 0, i);
                 direction = !direction;
             }
             Console.WriteLine();

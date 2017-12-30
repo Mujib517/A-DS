@@ -18,9 +18,12 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            int[] arr = new[] { 4, 5, 15, 0, 1, 7, 17 };
-            var root = Week7.Assignments.CreateBST(arr, arr.Length);
-            Week7.Assignments.BottmUpZigZag(root);
+
+            Console.WriteLine(Warmup.Assignments.TrailingZeros(20));
+
+            //int[] arr = new[] { 4, 5, 15, 0, 1, 7, 17 };
+            //var root = Week7.Assignments.CreateBST(arr, arr.Length);
+            //Week7.Assignments.BottmUpZigZag(root);
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
