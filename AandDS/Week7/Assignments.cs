@@ -217,6 +217,86 @@ namespace AandDS.Week7
             }
             return true;
         }
+
+        public static void VerticalOrder(Node root)
+        {
+            int min = 0, max = 0;
+            GetHorizontalDistance(root, ref min, ref max, 0);
+
+            for (int i = min; i <= max; i++)
+            {
+                PrintVOrder(root, i, 0);
+                Console.WriteLine();
+            }
+
+        }
+
+        private static void PrintVOrder(Node root, int vLine, int hDistance)
+        {
+            if (root == null) return;
+            if (hDistance == vLine) Console.Write(root.Data + " ");
+
+            PrintVOrder(root.Left, vLine, hDistance - 1);
+            PrintVOrder(root.Right, vLine, hDistance + 1);
+        }
+
+        private static void GetHorizontalDistance(Node root, ref int min, ref int max, int current)
+        {
+            if (root == null) return;
+            if (current < min) min = current;
+            if (current > max) max = current;
+
+            GetHorizontalDistance(root.Left, ref min, ref max, current - 1);
+            GetHorizontalDistance(root.Right, ref min, ref max, current + 1);
+        }
+
+        public static void BottomUpLevelOrder(Node root)
+        {
+            int height = Height(root);
+            for (int i = height; i >= 0; i--)
+            {
+                BottomUpLevelOrder(root, 0, i);
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+        private static void BottomUpLevelOrder(Node root, int current, int height)
+        {
+            if (root == null) return;
+            if (current == height) Console.Write(root.Data + " ");
+            BottomUpLevelOrder(root.Left, current + 1, height);
+            BottomUpLevelOrder(root.Right, current + 1, height);
+        }
+
+        public static void BottmUpZigZag(Node root)
+        {
+            int h = Height(root);
+            bool direction = false;
+            for (int i = h; i >= 0; i--)
+            {
+                BottomUpZigZag(root, 0, i);
+                direction = !direction;
+            }
+            Console.WriteLine();
+        }
+
+        private static void BottomUpZigZag(Node root, int current, int height)
+        {
+            if (root == null) return;
+
+            if (current == height) Console.Write(root.Data + " ");
+            if (height % 2 == 0)
+            {
+                BottomUpZigZag(root.Left, current + 1, height);
+                BottomUpZigZag(root.Right, current + 1, height);
+            }
+            else
+            {
+                BottomUpZigZag(root.Right, current + 1, height);
+                BottomUpZigZag(root.Left, current + 1, height);
+            }
+        }
+
         public static Node CreateBST(int[] arr, int n)
         {
             Node root = new Node { Data = arr[0] };
