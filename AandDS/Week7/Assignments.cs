@@ -187,21 +187,33 @@ namespace AandDS.Week7
 
         //root left 2*i
         //root right 2i+1
+        public static bool IsBST(Node root, int min, int max)
+        {
+            if (root == null) return true;
+            if (root.Data >= max || root.Data <= min) return false;
+
+            return IsBST(root.Left, min, root.Data) && IsBST(root.Right, root.Data, max);
+        }
+
         public static bool IsBST(int[] arr, int n)
         {
-            for (int i = 0; i < n; i++)
+            Stack<int> stack = new Stack<int>();
+
+            int lower = int.MinValue;
+
+            for (int i = 0; i < arr.Length; i++)
             {
-                int root = arr[i];
-                if (2 * i + 1 < n)
+                int data = arr[i];
+
+                if (data < lower) return false;
+
+
+                while (stack.Count != 0 && stack.Peek() < data)
                 {
-                    int left = arr[2 * i + 1];
-                    if (root < left) return false;
+                    lower = stack.Peek();
+                    stack.Pop();
                 }
-                if (2 * i + 2 < n)
-                {
-                    int right = arr[2 * i + 2];
-                    if (root > right) return false;
-                }
+                stack.Push(data);
             }
             return true;
         }
@@ -239,6 +251,23 @@ namespace AandDS.Week7
 
             }
 
+            return root;
+        }
+
+        public static Node CreateBinaryTree(int[] arr, int n)
+        {
+            Node root = null;
+            Node temp = null;
+
+            for (int i = 0; i < n; i++)
+            {
+                temp = new Node { Data = arr[i] };
+                if (i == 0) root = temp;
+                int left = 2 * i + 1;
+                int right = 2 * i + 2;
+                if (left < n) temp.Left = new Node { Data = arr[left] };
+                if (right < n) temp.Right = new Node { Data = arr[right] };
+            }
             return root;
         }
         public class Node

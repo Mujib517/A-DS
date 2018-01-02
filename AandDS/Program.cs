@@ -18,9 +18,13 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            int[] arr = new[] { 40, 49, 87, 651 };
-            var root = Week7.Assignments.IsBST(arr, arr.Length);
-            Console.WriteLine(root);
+            int[] arr = new[] { 92, 10, 963, 5, 334, 928, 973, 2, 9, 263, 860 };
+            var arr2 = new[] { 156, 153, 6947, 149, 154, 1761, 7230, 9, 152 };
+            var arr3 = new[] { 736, 43, 882, 3, 460, 741, 887, 0, 42, 247, 465, 739, 844, 886, 888 };
+            var root = Week7.Assignments.CreateBinaryTree(arr, arr.Length);
+            Console.WriteLine(Week7.Assignments.IsBST(arr,arr.Length));
+            Console.WriteLine(Week7.Assignments.IsBST(arr2,arr2.Length));
+            Console.WriteLine(Week7.Assignments.IsBST(arr3,arr3.Length));
 
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
