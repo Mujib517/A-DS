@@ -18,15 +18,16 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            int[,] arr = new[,] {
-                { -2, -3, -6, -5, 50, 3 },
-                { 8, 7, 10, -5, -3, 30 },
-                { 6    , 3 ,  70,  9, - 20, - 7 },
-                { -9  ,  9, - 6,  7 ,  3 ,  2 },
-                {-1 ,    7,   7,   6,   -4,  3  },
-                { 8,5  , 6  , -9 , 40,  8} };
 
-            Warmup.Assignments.DiagnolSum(arr, 6);
+            var arr = Warmup.Assignments.PreCalculatePrime(6);
+            Console.WriteLine(arr[5]);
+
+            //Dictionary<int, long> dict = new Dictionary<int, long>();
+            //dict.Add(0, 1);
+            //dict.Add(1, 1);
+            //Console.WriteLine(Warmup.Assignments.Factorial(5, dict));
+            //Console.WriteLine(Warmup.Assignments.Factorial(4, dict));
+
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)
@@ -37,13 +38,6 @@ namespace AandDS
             //    Console.WriteLine(IsCBT(root) ? "Yes" : "No");
             //    testCases--;
             //}
-
-            //3 2 4  null 1  5 null
-
-            //3 4 2 5 1 
-
-            // 3 4 2  null 1 5
-
 
             //int testCases = Convert.ToInt32(Console.ReadLine());
             //while (testCases > 0)

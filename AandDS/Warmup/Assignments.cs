@@ -106,5 +106,25 @@ namespace AandDS.Warmup
                 return 0;
             return Math.Min(y1, y2) - Math.Max(x1, x2);
         }
+
+        public static long[] PreCalculatePrime(int n)
+        {
+            long[] result = new long[n + 1];
+            result[0] = 1;
+            result[1] = 1;
+            for (int i = 2; i <= n; i++)
+            {
+                result[i] = result[i - 1] * i;
+            }
+
+            return result;
+        }
+
+        public static long Factorial(int n, Dictionary<int, long> cache)
+        {
+            if (!cache.ContainsKey(n))
+                cache.Add(n, n * Factorial(n - 1, cache));
+            return cache[n];
+        }
     }
 }

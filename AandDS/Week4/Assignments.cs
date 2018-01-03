@@ -64,6 +64,15 @@ namespace AandDS.Week4
             return words + " " + vowels + " " + consonants;
         }
 
+        public static bool Pow(int x)
+        {
+            for (int i = 1; i <= Math.Sqrt(x); i++)
+            {
+                var log = Math.Log(x) / Math.Log(i);
+                if (log % 1 == 0) return true;
+            }
+            return false;
+        }
 
 
         public static bool PowerRepresentation(int n)
@@ -72,15 +81,30 @@ namespace AandDS.Week4
             int x = n;
             while (factor <= Math.Sqrt(n))
             {
-                if (x % factor == 0) x = x / factor;
-                else
-                {
-                    factor++;
-                    x = n;
-                }
-                if (x == 1) return true;
+                if (IsPower(n, factor)) return true;
+                factor++;
+
+                //if (x % factor == 0) x = x / factor;
+                //else
+                //{
+                //    factor++;
+                //    x = n;
+                //}
+                //if (x == 1) return true;
             }
             return false;
+        }
+
+        public static bool IsPower(int x, int y)
+        {
+            if (x == 1)
+                return (y == 1);
+
+            int pow = 1;
+            while (pow < y)
+                pow = pow * x;
+
+            return (pow == y);
         }
 
         static bool CheckVowel(int i)

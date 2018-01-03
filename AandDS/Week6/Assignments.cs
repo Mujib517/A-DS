@@ -178,12 +178,54 @@ namespace AandDS.Week6
 
             for (int i = 1; i < n; i++)
             {
-                while (st.Count!=0 && arr[st.Peek()] <= arr[i])
+                while (st.Count != 0 && arr[st.Peek()] <= arr[i])
                     st.Pop();
 
-                result[i] = (st.Count==0) ? (i + 1) : (i - st.Peek());
+                result[i] = (st.Count == 0) ? (i + 1) : (i - st.Peek());
                 st.Push(i);
             }
+        }
+
+        public static int KillDragons(int[] dungeon, int[] energy, int n)
+        {
+            return CanWin(dungeon, energy) ? FindDungeon(dungeon, energy, n) : -1;
+        }
+
+        static int FindDungeon(int[] dungeon, int[] dragaon, int n)
+        {
+            int energyRemaining = 0;
+            int count = 0;
+            int start = 1;
+
+            for (int i = 0; i < n; i++)
+            {
+                if (count == n) break;
+
+                if (dungeon[i] <= dragaon[i] + energyRemaining)
+                {
+                    energyRemaining = (dragaon[i] + energyRemaining) - dungeon[i];
+                    count++;
+                }
+                else
+                {
+                    count = 0;
+                    start = i + 1 < n ? i + 2 : 1;
+                    energyRemaining = 0;
+                }
+                if (i == n - 1) i = -1;
+            }
+
+            return start;
+        }
+
+        private static bool CanWin(int[] dungeon, int[] energy)
+        {
+            int totalDungeons = 0;
+            for (int i = 0; i < dungeon.Length; i++) totalDungeons += dungeon[i];
+            int totalEnergy = 0;
+            for (int i = 0; i < energy.Length; i++) totalEnergy += energy[i];
+
+            return totalEnergy >= totalDungeons;
         }
     }
 
