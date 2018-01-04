@@ -19,8 +19,9 @@ namespace AandDS
         static void Main(string[] args)
         {
 
-            var arr = Warmup.Assignments.PreCalculatePrime(6);
-            Console.WriteLine(arr[5]);
+            var arr = Week4.Assignments.GenerateSubArr(new[] { 1, 0, 1, 0 }, 4);
+            var result = Week4.Assignments.FindSubArrayCount(arr);
+            Console.WriteLine(result);
 
             //Dictionary<int, long> dict = new Dictionary<int, long>();
             //dict.Add(0, 1);

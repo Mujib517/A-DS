@@ -73,8 +73,6 @@ namespace AandDS.Week4
             }
             return false;
         }
-
-
         public static bool PowerRepresentation(int n)
         {
             int factor = 2;
@@ -110,6 +108,51 @@ namespace AandDS.Week4
         static bool CheckVowel(int i)
         {
             return i == 97 || i == 101 || i == 105 || i == 111 || i == 117;
+        }
+
+        public static int FindSubArrayCount(List<List<int>> list)
+        {
+            int count = 0;
+            foreach (var arr in list)
+            {
+                if (IsEqualZerosOnes(arr, arr.Count)) count++;
+            }
+            return count;
+        }
+
+        public static List<List<int>> GenerateSubArr(int[] arr, int n)
+        {
+            List<List<int>> list = new List<List<int>>();
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i; j < n; j++)
+                {
+                    var a = new List<int>();
+                    for (int k = i; k <= j; k++)
+                    {
+                        a.Add(arr[k]);
+                    }
+                    list.Add(a);
+                    Console.WriteLine();
+                }
+            }
+
+            return list;
+        }
+
+        public static bool IsEqualZerosOnes(List<int> arr, int n)
+        {
+            if (arr.Count <= 1) return false;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] == 0) arr[i] = -1;
+
+                if (i != 0)
+                    arr[i] += arr[i - 1];
+            }
+
+            return arr[n - 1] == 0;
         }
     }
 }
