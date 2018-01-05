@@ -19,9 +19,25 @@ namespace AandDS
         static void Main(string[] args)
         {
 
-            var arr = Week4.Assignments.GenerateSubArr(new[] { 1, 0, 1, 0 }, 4);
-            var result = Week4.Assignments.FindSubArrayCount(arr);
-            Console.WriteLine(result);
+            var arr = new[] { 1, 2, 3 };
+            var arr2 = new[] { 4, 5, 6 };
+            Node node = CreateList(arr);
+            Node node2 = CreateList(arr2);
+            Node result = IDeserve.LList.Sum(node, node2);
+            Print(result);
+
+
+            //Node head1 = null;
+            //Node head2 = null;
+            //CreateLists(out head1, out head2);
+
+            //Node result = IDeserve.LList.FindLoop(head1);
+            //Console.WriteLine(result.Data);
+
+            //var arr = new[] { 1, 2, 3, 4, 5, 6, 7 };
+            //var node = CreateList(arr);
+            //var result = IDeserve.LList.FindNthNodeReverse(node, 8);
+            //Console.WriteLine(result.Data);
 
             //Dictionary<int, long> dict = new Dictionary<int, long>();
             //dict.Add(0, 1);
@@ -48,6 +64,24 @@ namespace AandDS
             //    Console.WriteLine(FindMissingNumber(arr, size));
             //    testCases--;
             //}
+        }
+
+        static void CreateLists(out Node head1, out Node head2)
+        {
+            Node n6 = new Node { Data = 9 };
+            Node n5 = new Node { Data = 8, Next = n6 };
+            Node n4 = new Node { Data = 6, Next = n5 };
+            Node n3 = new Node { Data = 5, Next = n4 };
+            Node n2 = new Node { Data = 4, Next = n3 };
+            Node n1 = new Node { Data = 2, Next = n2 };
+            n5.Next = n3;
+
+            Node n24 = new Node { Data = 7 };
+            Node n25 = new Node { Data = 3, Next = n24 };
+            Node n26 = new Node { Data = 1, Next = n25 };
+
+            head1 = n1;
+            head2 = n26;
         }
 
         static Node CreateList(int[] arr)
