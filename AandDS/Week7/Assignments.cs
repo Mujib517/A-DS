@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AandDS.Week7
@@ -7,6 +8,13 @@ namespace AandDS.Week7
 
     class Assignments
     {
+
+
+        private static int maxLevel = 0;
+        private static bool v1;
+        private static bool v2;
+
+
         public static void TreeTraversals(int[] arr, int n)
         {
             Node root = CreateBST(arr, n);
@@ -165,7 +173,6 @@ namespace AandDS.Week7
             RightView(root.Left, level + 1);
         }
 
-        private static int maxLevel = 0;
 
         private static void LeftView(Node root, int level)
         {
@@ -297,6 +304,162 @@ namespace AandDS.Week7
             }
         }
 
+        private Node LCA(Node root, int n1, int n2)
+        {
+            v1 = false;
+            v2 = false;
+
+            Node lca = LCAUtil(root, n1, n2);
+
+            return v1 && v2 ? lca : null;
+        }
+
+        private static Node LCAUtil(Node root, int n1, int n2)
+        {
+            if (root == null)
+                return null;
+
+            if (root.Data == n1)
+            {
+                v1 = true;
+                return root;
+            }
+            if (root.Data == n2)
+            {
+                v2 = true;
+                return root;
+            }
+
+            Node lLCA = LCAUtil(root.Left, n1, n2);
+            Node rLCA = LCAUtil(root.Right, n1, n2);
+
+            if (lLCA != null && rLCA != null)
+                return root;
+
+            return (lLCA != null) ? lLCA : rLCA;
+        }
+
+        void PrintKDistDown(Node node, int k)
+        {
+            if (node == null || k < 0)
+                return;
+
+            if (k == 0)
+            {
+                Console.Write(node.Data);
+                Console.WriteLine();
+                return;
+            }
+
+            PrintKDistDown(node.Left, k - 1);
+            PrintKDistDown(node.Right, k - 1);
+        }
+
+        int PrintkDistNode(Node node, Node target, int k)
+        {
+            if (node == null)
+                return -1;
+
+            if (node == target)
+            {
+                PrintKDistDown(node, k);
+                return 0;
+            }
+
+            int dl = PrintkDistNode(node.Left, target, k);
+
+            if (dl != -1)
+            {
+
+                if (dl + 1 == k)
+                {
+                    Console.Write(node.Data);
+                    Console.WriteLine();
+                }
+
+                else
+                    PrintKDistDown(node.Right, k - dl - 2);
+
+                return 1 + dl;
+            }
+
+            int dr = PrintkDistNode(node.Right, target, k);
+            if (dr != -1)
+            {
+                if (dr + 1 == k)
+                {
+                    Console.Write(node.Data);
+                    Console.WriteLine();
+                }
+                else
+                    PrintKDistDown(node.Left, k - dr - 2);
+                return 1 + dr;
+            }
+
+            return -1;
+        }
+        private static Node Find(Node root, int x)
+        {
+            if (root == null) return null;
+            if (root.Data == x) return root;
+            if (x > root.Data) return Find(root.Right, x);
+            return Find(root.Left, x);
+        }
+
+        public static long SumRootToLeaf(Node node, long val)
+        {
+            int largestPrime = (int)1e9 + 7;
+            if (node == null)
+                return 0;
+
+            if (node.Data <= 9)
+                val = (val * 10 + node.Data);
+            else GetDigit(node.Data, ref val);
+
+            if (node.Left == null && node.Right == null)
+                return val % largestPrime;
+            return SumRootToLeaf(node.Left, val) % largestPrime
+                    + SumRootToLeaf(node.Right, val) % largestPrime;
+        }
+
+        public static void GetDigit(int num, ref long val)
+        {
+            if (num < 10)
+            {
+                val = (val * 10 + num);
+                return;
+            }
+            else
+            {
+
+                GetDigit(num / 10, ref val);
+                val = (val * 10 + num % 10);
+            }
+        }
+
+        public static Node CreateBinaryTree(int[] arr, int n)
+        {
+            if (arr.Length == 0) return null;
+            Node root = new Node { Data = arr[0] };
+            Node temp = root;
+            int index = 1;
+
+            while (temp != null && index < n)
+            {
+                Node child = new Node { Data = arr[index++] };
+                temp.Left = child;
+
+                if (index < n)
+                {
+                    temp.Right = new Node { Data = arr[index++] };
+                }
+
+                temp = temp.Left;
+            }
+
+            return root;
+        }
+
         public static Node CreateBST(int[] arr, int n)
         {
             Node root = new Node { Data = arr[0] };
@@ -331,23 +494,6 @@ namespace AandDS.Week7
 
             }
 
-            return root;
-        }
-
-        public static Node CreateBinaryTree(int[] arr, int n)
-        {
-            Node root = null;
-            Node temp = null;
-
-            for (int i = 0; i < n; i++)
-            {
-                temp = new Node { Data = arr[i] };
-                if (i == 0) root = temp;
-                int left = 2 * i + 1;
-                int right = 2 * i + 2;
-                if (left < n) temp.Left = new Node { Data = arr[left] };
-                if (right < n) temp.Right = new Node { Data = arr[right] };
-            }
             return root;
         }
         public class Node
