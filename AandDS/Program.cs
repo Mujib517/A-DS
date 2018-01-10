@@ -96,21 +96,21 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            //var arr = new[] { 4, 5, 15, 2, 1, 7, 17 };
-            //var root = Week7.Assignments.CreateBST(arr, arr.Length);
-            //Console.WriteLine(Week7.Assignments.SumRootToLeaf(root, 0) % (1e9 + 7));
+            var arr = new[] { 3, 2, 4, 1, 5 };
+            var root = Week7.Assignments.CreateBST(arr, arr.Length);
+            Console.WriteLine(Week7.Assignments.lowestCommonAncestor(root, 1, 2));
 
-            MinHeap heap = new MinHeap();
-            heap.Insert(5);
-            heap.GetMin();
-            heap.DeleteMin();
-            heap.GetMin();
-            heap.Insert(-15);
-            heap.Insert(10);
-            heap.Insert(-30);
-            heap.GetMin();
-            heap.DeleteMin();
-            heap.GetMin();
+
+            //heap.Insert(5);
+            //heap.GetMin();
+            //heap.DeleteMin();
+            //heap.GetMin();
+            //heap.Insert(-15);
+            //heap.Insert(10);
+            //heap.Insert(-30);
+            //heap.GetMin();
+            //heap.DeleteMin();
+            //heap.GetMin();
 
 
             //Week7.Assignments.get_digit(5432);

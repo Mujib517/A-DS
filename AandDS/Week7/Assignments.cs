@@ -26,14 +26,14 @@ namespace AandDS.Week7
             Console.WriteLine();
         }
 
-        private static void PostOrder(Node root)
+        public static void PostOrder(Node root)
         {
             if (root == null) return;
             PostOrder(root.Left);
             PostOrder(root.Right);
             Console.Write(root.Data + " ");
         }
-        private static void InOrder(Node root)
+        public static void InOrder(Node root)
         {
             if (root == null) return;
             InOrder(root.Left);
@@ -304,39 +304,31 @@ namespace AandDS.Week7
             }
         }
 
-        private Node LCA(Node root, int n1, int n2)
+        public static int lowestCommonAncestor(Node root, int p, int q)
         {
-            v1 = false;
-            v2 = false;
-
-            Node lca = LCAUtil(root, n1, n2);
-
-            return v1 && v2 ? lca : null;
+            if (root.Data > Math.Max(p, q))
+            {
+                return lowestCommonAncestor(root.Left, p, q);
+            }
+            else if (root.Data < Math.Min(p, q))
+            {
+                return lowestCommonAncestor(root.Right, p, q);
+            }
+            else
+            {
+                return root.Data;
+            }
         }
 
-        private static Node LCAUtil(Node root, int n1, int n2)
+        public static int LowestCommonAncestor(Node root, int u, int v)
         {
-            if (root == null)
-                return null;
-
-            if (root.Data == n1)
+            while (root != null)
             {
-                v1 = true;
-                return root;
+                if (root.Data > u && root.Data < v) return root.Data;
+                if (root.Data < u) root = root.Right;
+                else root = root.Left;
             }
-            if (root.Data == n2)
-            {
-                v2 = true;
-                return root;
-            }
-
-            Node lLCA = LCAUtil(root.Left, n1, n2);
-            Node rLCA = LCAUtil(root.Right, n1, n2);
-
-            if (lLCA != null && rLCA != null)
-                return root;
-
-            return (lLCA != null) ? lLCA : rLCA;
+            return int.MinValue;
         }
 
         void PrintKDistDown(Node node, int k)
@@ -435,6 +427,90 @@ namespace AandDS.Week7
                 GetDigit(num / 10, ref val);
                 val = (val * 10 + num % 10);
             }
+        }
+
+        public static int NumberOfBST(int[] arr, int n)
+        {
+            int start = 0;
+            int end = n - 1;
+            int count = 0;
+            while (start <= end)
+            {
+                if (IsBST(arr, start, start, end, int.MinValue, int.MaxValue)) count++;
+                start++;
+            }
+            return count;
+        }
+        public static bool IsBST(int[] arr, int idx, int start, int end, int min, int max)
+        {
+            if (start > end || idx < start || idx > end) return false;
+            if (idx >= arr.Length) return true;
+            int elem = arr[idx];
+            if (elem < min || elem > max) return false;
+            return IsBST(arr, 2 * idx + 1, start, end, min, elem) && IsBST(arr, 2 * idx + 2, start, end, elem, max);
+        }
+
+        public static bool IsBST(int[] arr, int idx, int min, int max)
+        {
+            if (idx >= arr.Length) return true;
+            int elem = arr[idx];
+            if (elem < min || elem > max) return false;
+            return IsBST(arr, 2 * idx + 1, min, elem) && IsBST(arr, 2 * idx + 2, elem, max);
+        }
+
+        public static Node ConstructBinaryTreeFromTraversals(int[] pre, int[] inorder, int n)
+        {
+            return Construct(pre, inorder, 0, 0, n - 1);
+        }
+
+        private static Node Construct(int[] pre, int[] inorder, int index, int start, int end)
+        {
+            if (start > end || index >= end) return null;
+
+            Node tNode = new Node { Data = pre[index++] };
+            if (start == end) return tNode;
+
+            int inIndex = LinearSearch(inorder, tNode.Data, start, end);
+
+            tNode.Left = Construct(inorder, pre, index, start, inIndex - 1);
+            tNode.Right = Construct(inorder, pre, index, inIndex + 1, end);
+            return tNode;
+            //if (start > end || end < 0 || index >= pre.Length) return null;
+            //Node root = new Node { Data = pre[index] };
+            //int idx = LinearSearch(inorder, pre[index++], start, end);
+            //root.Left = Construct(pre, inorder, index, start, idx - 1);
+            //root.Right = Construct(pre, inorder, index + 1, idx + 1, end);
+            //return root;
+        }
+
+        private static int LinearSearch(int[] inorder, int v, int start, int end)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (inorder[i] == v) return i;
+            }
+            return -1;
+        }
+
+        public static Node helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder)
+        {
+            if (preStart > preorder.Length - 1 || inStart > inEnd || inEnd < 0)
+            {
+                return null;
+            }
+            Node root = new Node { Data = preorder[preStart++] };
+            int inIndex = -1;
+            for (int i = inStart; i <= inEnd; i++)
+            {
+                if (inorder[i] == root.Data)
+                {
+                    inIndex = i;
+                    break;
+                }
+            }
+            root.Left = helper(preStart, inStart, inIndex - 1, preorder, inorder);
+            root.Right = helper(preStart + inIndex - inStart, inIndex + 1, inEnd, preorder, inorder);
+            return root;
         }
 
         public static Node CreateBinaryTree(int[] arr, int n)
