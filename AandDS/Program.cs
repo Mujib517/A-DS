@@ -19,7 +19,9 @@ namespace AandDS
         static void Main(string[] args)
         {
 
-            Console.WriteLine(Warmup.Assignments.TrailingZeros(20));
+            int[,] arr = new int[,] { { 1, 2, 3 }, { 8, 9, 4 }, { 7, 6, 5 } };
+            Warmup.Assignments.SpiralTraversal(arr, 3);
+
 
             //int[] arr = new[] { 4, 5, 15, 0, 1, 7, 17 };
             //var root = Week7.Assignments.CreateBST(arr, arr.Length);
