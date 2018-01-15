@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AandDS.Week7
@@ -7,6 +8,13 @@ namespace AandDS.Week7
 
     class Assignments
     {
+
+
+        private static int maxLevel = 0;
+        private static bool v1;
+        private static bool v2;
+
+
         public static void TreeTraversals(int[] arr, int n)
         {
             Node root = CreateBST(arr, n);
@@ -18,14 +26,14 @@ namespace AandDS.Week7
             Console.WriteLine();
         }
 
-        private static void PostOrder(Node root)
+        public static void PostOrder(Node root)
         {
             if (root == null) return;
             PostOrder(root.Left);
             PostOrder(root.Right);
             Console.Write(root.Data + " ");
         }
-        private static void InOrder(Node root)
+        public static void InOrder(Node root)
         {
             if (root == null) return;
             InOrder(root.Left);
@@ -165,7 +173,6 @@ namespace AandDS.Week7
             RightView(root.Left, level + 1);
         }
 
-        private static int maxLevel = 0;
 
         private static void LeftView(Node root, int level)
         {
@@ -187,21 +194,33 @@ namespace AandDS.Week7
 
         //root left 2*i
         //root right 2i+1
+        public static bool IsBST(Node root, int min, int max)
+        {
+            if (root == null) return true;
+            if (root.Data >= max || root.Data <= min) return false;
+
+            return IsBST(root.Left, min, root.Data) && IsBST(root.Right, root.Data, max);
+        }
+
         public static bool IsBST(int[] arr, int n)
         {
-            for (int i = 0; i < n; i++)
+            Stack<int> stack = new Stack<int>();
+
+            int lower = int.MinValue;
+
+            for (int i = 0; i < arr.Length; i++)
             {
-                int root = arr[i];
-                if (2 * i + 1 < n)
+                int data = arr[i];
+
+                if (data < lower) return false;
+
+
+                while (stack.Count != 0 && stack.Peek() < data)
                 {
-                    int left = arr[2 * i + 1];
-                    if (root < left) return false;
+                    lower = stack.Peek();
+                    stack.Pop();
                 }
-                if (2 * i + 2 < n)
-                {
-                    int right = arr[2 * i + 2];
-                    if (root > right) return false;
-                }
+                stack.Push(data);
             }
             return true;
         }
@@ -283,6 +302,238 @@ namespace AandDS.Week7
                 BottomUpZigZag(root.Right, current + 1, height);
                 BottomUpZigZag(root.Left, current + 1, height);
             }
+        }
+
+        public static int lowestCommonAncestor(Node root, int p, int q)
+        {
+            if (root.Data > Math.Max(p, q))
+            {
+                return lowestCommonAncestor(root.Left, p, q);
+            }
+            else if (root.Data < Math.Min(p, q))
+            {
+                return lowestCommonAncestor(root.Right, p, q);
+            }
+            else
+            {
+                return root.Data;
+            }
+        }
+
+        public static int LowestCommonAncestor(Node root, int u, int v)
+        {
+            while (root != null)
+            {
+                if (root.Data > u && root.Data < v) return root.Data;
+                if (root.Data < u) root = root.Right;
+                else root = root.Left;
+            }
+            return int.MinValue;
+        }
+
+        void PrintKDistDown(Node node, int k)
+        {
+            if (node == null || k < 0)
+                return;
+
+            if (k == 0)
+            {
+                Console.Write(node.Data);
+                Console.WriteLine();
+                return;
+            }
+
+            PrintKDistDown(node.Left, k - 1);
+            PrintKDistDown(node.Right, k - 1);
+        }
+
+        int PrintkDistNode(Node node, Node target, int k)
+        {
+            if (node == null)
+                return -1;
+
+            if (node == target)
+            {
+                PrintKDistDown(node, k);
+                return 0;
+            }
+
+            int dl = PrintkDistNode(node.Left, target, k);
+
+            if (dl != -1)
+            {
+
+                if (dl + 1 == k)
+                {
+                    Console.Write(node.Data);
+                    Console.WriteLine();
+                }
+
+                else
+                    PrintKDistDown(node.Right, k - dl - 2);
+
+                return 1 + dl;
+            }
+
+            int dr = PrintkDistNode(node.Right, target, k);
+            if (dr != -1)
+            {
+                if (dr + 1 == k)
+                {
+                    Console.Write(node.Data);
+                    Console.WriteLine();
+                }
+                else
+                    PrintKDistDown(node.Left, k - dr - 2);
+                return 1 + dr;
+            }
+
+            return -1;
+        }
+        private static Node Find(Node root, int x)
+        {
+            if (root == null) return null;
+            if (root.Data == x) return root;
+            if (x > root.Data) return Find(root.Right, x);
+            return Find(root.Left, x);
+        }
+
+        public static long SumRootToLeaf(Node node, long val)
+        {
+            int largestPrime = (int)1e9 + 7;
+            if (node == null)
+                return 0;
+
+            if (node.Data <= 9)
+                val = (val * 10 + node.Data);
+            else GetDigit(node.Data, ref val);
+
+            if (node.Left == null && node.Right == null)
+                return val % largestPrime;
+            return SumRootToLeaf(node.Left, val) % largestPrime
+                    + SumRootToLeaf(node.Right, val) % largestPrime;
+        }
+
+        public static void GetDigit(int num, ref long val)
+        {
+            if (num < 10)
+            {
+                val = (val * 10 + num);
+                return;
+            }
+            else
+            {
+
+                GetDigit(num / 10, ref val);
+                val = (val * 10 + num % 10);
+            }
+        }
+
+        public static int NumberOfBST(int[] arr, int n)
+        {
+            int start = 0;
+            int end = n - 1;
+            int count = 0;
+            while (start <= end)
+            {
+                if (IsBST(arr, start, start, end, int.MinValue, int.MaxValue)) count++;
+                start++;
+            }
+            return count;
+        }
+        public static bool IsBST(int[] arr, int idx, int start, int end, int min, int max)
+        {
+            if (start > end || idx < start || idx > end) return false;
+            if (idx >= arr.Length) return true;
+            int elem = arr[idx];
+            if (elem < min || elem > max) return false;
+            return IsBST(arr, 2 * idx + 1, start, end, min, elem) && IsBST(arr, 2 * idx + 2, start, end, elem, max);
+        }
+
+        public static bool IsBST(int[] arr, int idx, int min, int max)
+        {
+            if (idx >= arr.Length) return true;
+            int elem = arr[idx];
+            if (elem < min || elem > max) return false;
+            return IsBST(arr, 2 * idx + 1, min, elem) && IsBST(arr, 2 * idx + 2, elem, max);
+        }
+
+        public static Node ConstructBinaryTreeFromTraversals(int[] pre, int[] inorder, int n)
+        {
+            return Construct(pre, inorder, 0, 0, n - 1);
+        }
+
+        private static Node Construct(int[] pre, int[] inorder, int index, int start, int end)
+        {
+            if (start > end || index >= end) return null;
+
+            Node tNode = new Node { Data = pre[index++] };
+            if (start == end) return tNode;
+
+            int inIndex = LinearSearch(inorder, tNode.Data, start, end);
+
+            tNode.Left = Construct(inorder, pre, index, start, inIndex - 1);
+            tNode.Right = Construct(inorder, pre, index, inIndex + 1, end);
+            return tNode;
+            //if (start > end || end < 0 || index >= pre.Length) return null;
+            //Node root = new Node { Data = pre[index] };
+            //int idx = LinearSearch(inorder, pre[index++], start, end);
+            //root.Left = Construct(pre, inorder, index, start, idx - 1);
+            //root.Right = Construct(pre, inorder, index + 1, idx + 1, end);
+            //return root;
+        }
+
+        private static int LinearSearch(int[] inorder, int v, int start, int end)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (inorder[i] == v) return i;
+            }
+            return -1;
+        }
+
+        public static Node helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder)
+        {
+            if (preStart > preorder.Length - 1 || inStart > inEnd || inEnd < 0)
+            {
+                return null;
+            }
+            Node root = new Node { Data = preorder[preStart++] };
+            int inIndex = -1;
+            for (int i = inStart; i <= inEnd; i++)
+            {
+                if (inorder[i] == root.Data)
+                {
+                    inIndex = i;
+                    break;
+                }
+            }
+            root.Left = helper(preStart, inStart, inIndex - 1, preorder, inorder);
+            root.Right = helper(preStart + inIndex - inStart, inIndex + 1, inEnd, preorder, inorder);
+            return root;
+        }
+
+        public static Node CreateBinaryTree(int[] arr, int n)
+        {
+            if (arr.Length == 0) return null;
+            Node root = new Node { Data = arr[0] };
+            Node temp = root;
+            int index = 1;
+
+            while (temp != null && index < n)
+            {
+                Node child = new Node { Data = arr[index++] };
+                temp.Left = child;
+
+                if (index < n)
+                {
+                    temp.Right = new Node { Data = arr[index++] };
+                }
+
+                temp = temp.Left;
+            }
+
+            return root;
         }
 
         public static Node CreateBST(int[] arr, int n)
