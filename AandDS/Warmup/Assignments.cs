@@ -55,76 +55,117 @@ namespace AandDS.Warmup
             return count;
         }
 
+        public static void PrintDiamond(int n)
+        {
+            int h = n / 2;
+            for (int i = 0; i < n; i++)
+            {
+                int left = Math.Abs(h - i);
+                for (int j = 0; j < left; j++) Console.Write(" ");
+                if (i == 0 || i == n - 1) Console.Write("*");
+                else
+                {
+                    Console.Write("*");
+                    int total = Math.Abs(n - 2 * left - 2);
+                    for (int j = 0; j < total; j++) Console.Write(" ");
+                    Console.Write("*");
+                }
+                for (int j = 0; j < left; j++) Console.Write(" ");
+                Console.WriteLine();
+            }
+        }
+
+        public static void TransformMatrix(int[,] matrix, int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                int j = n - 1;
+                while (j >= 0)
+                {
+                    Console.Write(matrix[j, i] + " ");//1,0, 1,1
+                    j--;
+                }
+
+                Console.WriteLine();
+            }
+        }
+
         public static void DiagnolSum(int[,] matrix, int n)
         {
-            int i = 0;
-            for (int j = n - 1; j >= 0; j--)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                int sum = matrix[i, j];
-                int k = i + 1;
-                int l = j + 1;
-                while (k < n && l < n - i)
+                for (int j = 0; j < n; j++)
                 {
-                    sum += matrix[k, l];
-                    k++;
-                    l++;
+                    int sum = 0;
+                    int k = i;
+                    while (k < n)
+                    {
+                        sum += matrix[j, k];
+                        j++;
+                        k++;
+                    }
+                    Console.WriteLine(sum + " ");
                 }
-                Console.Write(sum + " ");
-            }
 
-            for (i = 1; i < n; i++)
+            }
+        }
+
+        public static int[,] Product(int[,] a, int[,] b)
+        {
+            int[,] c = new int[a.GetLength(0), b.GetLength(1)];
+            for (int i = 0; i < a.GetLength(0); i++)
             {
-                int j = 0;
-                int k = i + 1;
-                int sum = matrix[i, j];
-                j++;
-                while (j < n - i && k < n)
+                for (int j = 0; j < a.GetLength(0); j++)
                 {
-                    sum += matrix[k, j];
-                    j++;
-                    k++;
+                    for (int k = 0; k < b.GetLength(1); k++)
+                    {
+                        c[i, j] += a[i, k] * b[k, j];
+                    }
                 }
-                Console.Write(sum + " ");
             }
-            Console.WriteLine();
+            return c;
         }
 
-        private static int RectArea(int[] rect1, int[] rect2)
+        public static void SpiralTraversal(int[,] a, int n)
         {
+            int i, rStart = 0, cStart = 0, rEnd = n;
 
-            int area1 = (rect1[0] - rect1[2]) * (rect1[1] - rect1[3]);
-            int area2 = (rect2[0] - rect2[2]) * (rect2[1] - rect2[3]);
-
-            int common = OverlapLength(rect1[0], rect1[2], rect2[0], rect2[2]) * OverlapLength(rect1[1], rect1[3], rect2[1], rect2[3]);
-
-            return area1 + area2 - common;
-        }
-
-        private static int OverlapLength(int x1, int y1, int x2, int y2)
-        {
-            if (y1 < x2 || x1 > y2)
-                return 0;
-            return Math.Min(y1, y2) - Math.Max(x1, x2);
-        }
-
-        public static long[] PreCalculatePrime(int n)
-        {
-            long[] result = new long[n + 1];
-            result[0] = 1;
-            result[1] = 1;
-            for (int i = 2; i <= n; i++)
+            while (rStart < rEnd && cStart < n)
             {
-                result[i] = result[i - 1] * i;
+                for (i = cStart; i < n; ++i)
+                {
+                    Console.Write(a[rStart, i] + " ");
+                }
+                rStart++;
+
+                
+                for (i = rStart; i < rEnd; ++i)
+                {
+                    Console.Write(a[i, n - 1] + " ");
+                }
+                n--;
+
+                if (rStart < rEnd)
+                {
+                    for (i = n - 1; i >= cStart; --i)
+                    {
+                        Console.Write(a[rEnd - 1, i] + " ");
+                    }
+                    rEnd--;
+                }
+
+                if (cStart < n)
+                {
+                    for (i = rEnd - 1; i >= rStart; --i)
+                    {
+                        Console.Write(a[i, cStart] + " ");
+                    }
+                    cStart++;
+                }
             }
-
-            return result;
         }
 
-        public static long Factorial(int n, Dictionary<int, long> cache)
-        {
-            if (!cache.ContainsKey(n))
-                cache.Add(n, n * Factorial(n - 1, cache));
-            return cache[n];
-        }
+
     }
 }
+

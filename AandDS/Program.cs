@@ -120,40 +120,9 @@ namespace AandDS
 
             //Console.WriteLine(Week7.Assignments.lowestCommonAncestor(root, 1, 2));
 
+            int[,] arr = new int[,] { { 1, 2, 3 }, { 8, 9, 4 }, { 7, 6, 5 } };
+            Warmup.Assignments.SpiralTraversal(arr, 3);
 
-            //heap.Insert(5);
-            //heap.GetMin();
-            //heap.DeleteMin();
-            //heap.GetMin();
-            //heap.Insert(-15);
-            //heap.Insert(10);
-            //heap.Insert(-30);
-            //heap.GetMin();
-            //heap.DeleteMin();
-            //heap.GetMin();
-
-
-            //Week7.Assignments.get_digit(5432);
-
-            //var arr = new[] { 1, 2, 3 };
-            //var arr2 = new[] { 4, 5, 6 };
-            //Node node = CreateList(arr);
-            //Node node2 = CreateList(arr2);
-            //Node result = IDeserve.LList.Sum(node, node2);
-            //Print(result);
-
-
-            //Node head1 = null;
-            //Node head2 = null;
-            //CreateLists(out head1, out head2);
-
-            //Node result = IDeserve.LList.FindLoop(head1);
-            //Console.WriteLine(result.Data);
-
-            //var arr = new[] { 1, 2, 3, 4, 5, 6, 7 };
-            //var node = CreateList(arr);
-            //var result = IDeserve.LList.FindNthNodeReverse(node, 8);
-            //Console.WriteLine(result.Data);
 
             //Dictionary<int, long> dict = new Dictionary<int, long>();
             //dict.Add(0, 1);
