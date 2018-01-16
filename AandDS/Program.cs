@@ -93,36 +93,14 @@ namespace AandDS
     }
     class Program
     {
+        public static object BinaryNoAdj1s { get; private set; }
 
-
-        static void main()
-        {
-         
-        }
         static void Main(string[] args)
         {
-
-            System.Threading.Thread t = new System.Threading.Thread(Program.main, 1024 * 1024 * 100);
-            t.Start();
-            var now = DateTime.Now.AddHours(2);
-
-            Node head1 = CreateList(new[] { 1, 5, 4 });
-            Node head2 = CreateList(new[] { 4, 5, 6 });
-
-            Node dummy = new Node { Data = int.MinValue };
-            Node result = IDeserve.LList.ReverseTest(head1);
-
-            Print(result);
-
-            //var arr = new[] { 3, 2, 4, 1, 5 };
-            //var root = Week7.Assignments.CreateBST(arr, arr.Length);
-
-
-            //Console.WriteLine(Week7.Assignments.lowestCommonAncestor(root, 1, 2));
-
-            int[,] arr = new int[,] { { 1, 2, 3 }, { 8, 9, 4 }, { 7, 6, 5 } };
-            Warmup.Assignments.SpiralTraversal(arr, 3);
-
+            var arr = new int[] { -24, 0, 28, 28, 55, -31, -27, -45, -24 };
+            int end = 0;
+            int start = 0;
+            Week9.Assignments.Kadane(arr);
 
             //Dictionary<int, long> dict = new Dictionary<int, long>();
             //dict.Add(0, 1);
