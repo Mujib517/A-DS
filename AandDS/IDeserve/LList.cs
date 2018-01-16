@@ -154,6 +154,108 @@ namespace AandDS.IDeserve
             return prev;
         }
 
+        public static Node SumUsingStacks(Node head1, Node head2)
+        {
+            Node result = new Node { Data = int.MinValue };
+
+            Node temp = result;
+
+            Stack<int> stack1 = AddToStack(head1);
+            Stack<int> stack2 = AddToStack(head2);
+            Stack<int> stack3 = new Stack<int>();
+            int carry = 0;
+            while (stack1.Count != 0 || stack2.Count != 0)
+            {
+                int a = 0;
+                int b = 0;
+
+                if (stack1.Count != 0) a = stack1.Pop();
+                if (stack2.Count != 0) b = stack2.Pop();
+                int sum = (a + b + carry) % 10;
+                carry = (a + b + carry) / 10;
+                stack3.Push(sum);
+            }
+
+            if (carry != 0) stack3.Push(carry);
+
+            while (stack3.Count != 0)
+            {
+                result.Next = new Node { Data = stack3.Pop() };
+                result = result.Next;
+            }
+
+            return temp.Next;
+        }
+
+        private static Stack<int> AddToStack(Node head)
+        {
+            Stack<int> stack = new Stack<int>();
+            while (head != null)
+            {
+                stack.Push(head.Data);
+                head = head.Next;
+            }
+            return stack;
+        }
+
+
+        public static Node ReverseTest(Node head)
+        {
+            if (head.Next == null) return head;
+            return ReverseTest(head.Next);
+        }
+
+
+        public static Node SumRecursion(Node head1, Node head2)
+        {
+            Node temp = new Node { Data = int.MinValue };
+            //int l1 = Length(head1);
+            //int l2 = Length(head2);
+            //int diff = Math.Abs(l1 - l2);
+
+            //if (diff > 0)
+            //{
+            //    if (l1 < l2)
+            //    {
+            //        Node t = head1;
+            //        head1 = head2;
+            //        head2 = t;
+            //    }
+
+            //    Node h1 = new Node { Data = 0 };
+            //    Node t1 = h1;
+
+            //    while (diff > 1)
+            //    {
+            //        h1.Next = new Node { Data = 0 };
+            //        h1 = h1.Next;
+            //        diff--;
+            //    }
+            //    h1.Next = head1;
+            //    head1 = t1;
+            //}
+
+            Node result = new Node { Data = int.MinValue };
+
+            SumRecursion(head1, head2, result, 0);
+
+            return result.Next;
+        }
+        private static Node SumRecursion(Node head1, Node head2, Node result, int carry)
+        {
+            if (head1 == null) return null;
+
+            int a = head1.Data;
+            int b = head2.Data;
+            int c = (a + b + carry) % 10;
+            carry = (a + b + carry) / 10;
+            result.Next = new Node { Data = c };
+            return SumRecursion(head1.Next, head2.Next, result.Next, carry);
+
+        }
+
+
+
         #region
         private static void Append(Node head, Node dummy)
         {

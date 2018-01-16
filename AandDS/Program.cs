@@ -94,11 +94,31 @@ namespace AandDS
     class Program
     {
 
+
+        static void main()
+        {
+         
+        }
         static void Main(string[] args)
         {
-            var arr = new[] { 3, 2, 4, 1, 5 };
-            var root = Week7.Assignments.CreateBST(arr, arr.Length);
-            Console.WriteLine(Week7.Assignments.lowestCommonAncestor(root, 1, 2));
+
+            System.Threading.Thread t = new System.Threading.Thread(Program.main, 1024 * 1024 * 100);
+            t.Start();
+            var now = DateTime.Now.AddHours(2);
+
+            Node head1 = CreateList(new[] { 1, 5, 4 });
+            Node head2 = CreateList(new[] { 4, 5, 6 });
+
+            Node dummy = new Node { Data = int.MinValue };
+            Node result = IDeserve.LList.ReverseTest(head1);
+
+            Print(result);
+
+            //var arr = new[] { 3, 2, 4, 1, 5 };
+            //var root = Week7.Assignments.CreateBST(arr, arr.Length);
+
+
+            //Console.WriteLine(Week7.Assignments.lowestCommonAncestor(root, 1, 2));
 
 
             //heap.Insert(5);
