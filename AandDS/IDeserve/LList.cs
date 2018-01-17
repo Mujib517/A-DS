@@ -208,38 +208,31 @@ namespace AandDS.IDeserve
 
         public static Node SumRecursion(Node head1, Node head2)
         {
-            Node temp = new Node { Data = int.MinValue };
-            //int l1 = Length(head1);
-            //int l2 = Length(head2);
-            //int diff = Math.Abs(l1 - l2);
+            head = new Node { Data = int.MinValue };
+            Node result = head;
+            SumRecursionUtil(head1, head2);
+            if (carry > 0) head.Next = new Node { Data = carry };
+            return ReverseIterative(result.Next);
+        }
 
-            //if (diff > 0)
-            //{
-            //    if (l1 < l2)
-            //    {
-            //        Node t = head1;
-            //        head1 = head2;
-            //        head2 = t;
-            //    }
+        static int carry = 0;
 
-            //    Node h1 = new Node { Data = 0 };
-            //    Node t1 = h1;
+        public static void SumRecursionUtil(Node head1, Node head2)
+        {
+            if (head1 == null) return;
 
-            //    while (diff > 1)
-            //    {
-            //        h1.Next = new Node { Data = 0 };
-            //        h1 = h1.Next;
-            //        diff--;
-            //    }
-            //    h1.Next = head1;
-            //    head1 = t1;
-            //}
+            SumRecursionUtil(head1.Next, head2.Next);
+            int value = (head1.Data + head2.Data + carry) % 10;
+            carry = (head1.Data + head2.Data + carry) / 10;
+            head.Next = new Node { Data = value };
+            head = head.Next;
+        }
 
-            Node result = new Node { Data = int.MinValue };
-
-            SumRecursion(head1, head2, result, 0);
-
-            return result.Next;
+        public static void Print(Node head)
+        {
+            if (head == null) return;
+            Print(head.Next);
+            Console.Write(head.Data + " ");
         }
         private static Node SumRecursion(Node head1, Node head2, Node result, int carry)
         {

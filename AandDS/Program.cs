@@ -97,10 +97,16 @@ namespace AandDS
 
         static void Main(string[] args)
         {
-            var arr = new int[] { -24, 0, 28, 28, 55, -31, -27, -45, -24 };
-            int end = 0;
-            int start = 0;
-            Week9.Assignments.Kadane(arr);
+            Node head1 = CreateList(new[] { 1, 1, 5, 4 });
+            Node head2 = CreateList(new[] { 1, 4, 5, 6 });
+
+            Node result = IDeserve.LList.SumRecursion(head1, head2);
+            Print(result);
+
+            //var arr = new int[] { -24, 0, 28, 28, 55, -31, -27, -45, -24 };
+            //int end = 0;
+            //int start = 0;
+            //Week9.Assignments.Kadane(arr);
 
             //Dictionary<int, long> dict = new Dictionary<int, long>();
             //dict.Add(0, 1);
