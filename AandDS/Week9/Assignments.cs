@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace AandDS.Week9
 {
     class Assignments
     {
+
         static int largestPrime = (int)1e9 + 7;
         //binary string with no adjacent 1's
         public static int BinaryNoAdj1s(int n, Dictionary<int, int> cache)
@@ -75,6 +77,111 @@ namespace AandDS.Week9
             }
 
             return K[n, W];
+        }
+
+        public static int SumOfDice(int n)
+        {
+            if (n == 0 || n == 1) return 1;
+            if (n == 2) return 2;
+            if (n == 3) return 4;
+            return SumOfDice(n - 1) + SumOfDice(n - 2) + SumOfDice(n - 3) + SumOfDice(n - 4);
+        }
+
+        static int LongestSubSeqSum(int[] arr)
+        {
+            int[] lis = new int[arr.Length];
+            int[] lds = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                lis[i] = 1;
+                lds[i] = 1;
+            }
+            for (int i = 1; i < arr.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (arr[i] >= arr[j])
+                    {
+                        lis[i] = Math.Max(lis[i], lis[j] + 1);
+                    }
+                }
+            }
+
+            for (int i = arr.Length - 2; i >= 0; i--)
+            {
+                for (int j = arr.Length - 1; j > i; j--)
+                {
+                    if (arr[i] >= arr[j])
+                    {
+                        lds[i] = Math.Max(lds[i], lds[j] + 1);
+                    }
+                }
+            }
+            int max = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (max < lis[i] + lds[i] - 1)
+                {
+                    max = lis[i] + lds[i] - 1;
+                }
+            }
+            return max;
+        }
+
+        static int MaxNonAdjSubSeqSum(int[] arr, int n)
+        {
+            int excl = 0;
+            int incl = arr[0];
+            for (int i = 1; i < n; i++)
+            {
+                int temp = incl;
+                incl = Math.Max(excl + arr[i], incl);
+                excl = temp;
+            }
+            return incl;
+        }
+
+        static int numberOfPaths(int m, int n)
+        {
+            int[,] count = new int[m, n];
+
+            for (int i = 0; i < m; i++)
+                count[i, 0] = 1;
+
+            for (int j = 0; j < n; j++)
+                count[0, j] = 1;
+
+            for (int i = 1; i < m; i++)
+            {
+                for (int j = 1; j < n; j++)
+
+                    count[i, j] = count[i - 1, j] + count[i, j - 1]; //+ count[i-1][j-1];
+
+            }
+            return count[m - 1, n - 1];
+        }
+
+
+        static BigInteger Fibonacci(BigInteger n, Dictionary<BigInteger, BigInteger> cache)
+        {
+            if (n == 0 || n == 1) return 1;
+            if (!cache.ContainsKey(n)) cache[n] = Fibonacci(n - 1, cache) + Fibonacci(n - 2, cache);
+            return cache[n];
+        }
+
+        public static int countDecoding(string digits, int n)
+        {
+            if (n == 0 || n == 1)
+                return 1;
+            int count = 0;
+
+            if (digits[n - 1] > '0')
+                count = countDecoding(digits, n - 1);
+
+            if (digits[n - 2] == '1' || (digits[n - 2] == '2'))
+                count += countDecoding(digits, n - 2);
+
+            return count;
         }
 
 
@@ -153,6 +260,16 @@ namespace AandDS.Week9
             max = max + Kadane(a);
 
             return (max > max_kadane) ? max : max_kadane;
+        }
+
+
+        public static long BinaryMax2Consecutive1s(int n, Dictionary<int, long> cache)
+        {
+            if (n == 0) return 1;
+            if (n == 1) return 2;
+            if (n == 2) return 4;
+            if (!cache.ContainsKey(n)) cache[n] = BinaryMax2Consecutive1s(n - 1, cache) + BinaryMax2Consecutive1s(n - 2, cache) + BinaryMax2Consecutive1s(n - 3, cache);
+            return cache[n];
         }
     }
 }
