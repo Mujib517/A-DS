@@ -95,9 +95,27 @@ namespace AandDS
     {
         public static object BinaryNoAdj1s { get; private set; }
 
+        public static Node Arrange(Node head)
+        {
+            if (head == null) return head;
+            Node tail = head;
+            Node prev = null;
+            while (tail.Next != null)
+            {
+                prev = tail;
+                tail = tail.Next;
+            }
+
+            prev.Next = null;
+            tail.Next = head;
+            return tail;
+        }
+
         static void Main(string[] args)
         {
-            Console.WriteLine(Week9.Assignments.countDecoding("121", 1));
+
+
+            Console.WriteLine(Week9.Assignments.SumOfDice(7));
 
 
             //var arr = new int[] { -24, 0, 28, 28, 55, -31, -27, -45, -24 };

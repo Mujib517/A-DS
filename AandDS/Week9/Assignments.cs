@@ -79,12 +79,20 @@ namespace AandDS.Week9
             return K[n, W];
         }
 
+        static int[] cache = new int[(int)1e6 + 1];
+
         public static int SumOfDice(int n)
         {
-            if (n == 0 || n == 1) return 1;
-            if (n == 2) return 2;
-            if (n == 3) return 4;
-            return SumOfDice(n - 1) + SumOfDice(n - 2) + SumOfDice(n - 3) + SumOfDice(n - 4);
+            cache[0] = 1;
+            cache[1] = 1;
+            cache[2] = 2;
+            cache[3] = 3;
+            if (cache[n] != 0) return n <= 6 ? cache[n] + 1 : cache[n];
+            for (int i = 2; i <= n; i++)
+            {
+                cache[n] = (cache[i - 2] + cache[i - 1]) % largestPrime;
+            }
+            return n <= 6 ? cache[n] + 1 : cache[n];
         }
 
         static int LongestSubSeqSum(int[] arr)
@@ -185,7 +193,7 @@ namespace AandDS.Week9
         }
 
 
-        static int kadane_algo(int[] a, int n)
+        public static int kadane_algo(int[] a, int n)
         {
             int csum = 0, msum = 0;
             for (int i = 0; i < n; i++)
@@ -215,6 +223,42 @@ namespace AandDS.Week9
             return Math.Max(msum, total_sum - (-mini));
         }
         //max subarray sum
+
+
+        static int MaxCircularSum(int[] a)
+        {
+            int n = a.Length;
+
+            int max_kadane = Kadane(a);
+
+            int max = 0;
+            for (int i = 0; i < n; i++)
+            {
+                max += a[i];
+                a[i] = -a[i];
+            }
+
+            max = max + Kadane(a);
+
+            return (max > max_kadane) ? max : max_kadane;
+        }
+
+        public static int NCR(int n, int k)
+        {
+            int[,] C = new int[n + 1, k + 1];
+            int i, j;
+
+            for (i = 0; i <= n; i++)
+            {
+                for (j = 0; j <= Math.Min(i, k); j++)
+                {
+                    C[i, j] = j == 0 || j == i ? 1 : C[i - 1, j - 1] + C[i - 1, j];
+                }
+            }
+
+            return C[n, k];
+        }
+
         public static int Kadane(int[] inputArray)
         {
             int start = 0;
@@ -243,33 +287,59 @@ namespace AandDS.Week9
             }
             return sum;
         }
-
-        static int MaxCircularSum(int[] a)
+        public static int FindMaxSum(int[,] matrix, int m, int n)
         {
-            int n = a.Length;
+            int maxSum = 0;
 
-            int max_kadane = Kadane(a);
-
-            int max = 0;
-            for (int i = 0; i < n; i++)
+            for (int left = 0; left < n; left++)
             {
-                max += a[i];
-                a[i] = -a[i];
+                int[] temp = new int[m];
+
+                for (int right = left; right < n; right++)
+                {
+                    for (int i = 0; i < m; ++i)
+                        temp[i] += matrix[i, right];
+
+                    int sum = Kadane(temp);
+
+                    if (sum > maxSum)
+                        maxSum = sum;
+                }
             }
 
-            max = max + Kadane(a);
+            return maxSum;
+        }
 
-            return (max > max_kadane) ? max : max_kadane;
+        static int max = (int)1e6 + 1;
+        static int[] arr = new int[max];
+
+        public static long BinaryMax2Consecutive1s(int n)
+        {
+            for (int i = 3; i <= n; i++)
+            {
+                if (arr[i] == 0)
+                {
+                    arr[i] = arr[i - 1] + arr[i - 2] + arr[i - 3];
+                }
+            }
+            return arr[n];
         }
 
 
-        public static long BinaryMax2Consecutive1s(int n, Dictionary<int, long> cache)
+
+        public class Activity
         {
-            if (n == 0) return 1;
-            if (n == 1) return 2;
-            if (n == 2) return 4;
-            if (!cache.ContainsKey(n)) cache[n] = BinaryMax2Consecutive1s(n - 1, cache) + BinaryMax2Consecutive1s(n - 2, cache) + BinaryMax2Consecutive1s(n - 3, cache);
-            return cache[n];
+            public int Start { get; set; }
+            public int Finish { get; set; }
+        }
+
+        class ActivityComparer : IComparer<Activity>
+        {
+            public int Compare(Activity x, Activity y)
+            {
+                return x.Finish.CompareTo(y.Finish);
+            }
         }
     }
+
 }
